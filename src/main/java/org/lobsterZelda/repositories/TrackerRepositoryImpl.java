@@ -11,7 +11,7 @@ public class TrackerRepositoryImpl implements TrackerRepository
     }
 
     @Override
-    public void createNewTracker(String publicTrackerID, String privateJWTToken, Map<String, String> seedSettings) {
+    public void createNewTracker(String publicTrackerID, Map<String, String> seedSettings) {
 
     }
 }
