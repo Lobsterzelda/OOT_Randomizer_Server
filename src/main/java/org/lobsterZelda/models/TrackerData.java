@@ -20,7 +20,6 @@ public class TrackerData
     private Map<Integer, Boolean> isDungeonMQ; // Keys are the identifiers for a dungeon's main entrance (from inside of the dungeon map). The value is true if the dungeon is an MQ dungeon, and false otherwise.
 
     private Boolean isChild; // True if currently a child, and false if currently an adult.
-    private Boolean inOOT; // True if currently in OOT, and false if currently in MM.
 
     private List<String> reminders;
 
@@ -103,14 +102,6 @@ public class TrackerData
 
     public void setChild(Boolean child) {
         isChild = child;
-    }
-
-    public Boolean getInOOT() {
-        return inOOT;
-    }
-
-    public void setInOOT(Boolean inOOT) {
-        this.inOOT = inOOT;
     }
 
 }
