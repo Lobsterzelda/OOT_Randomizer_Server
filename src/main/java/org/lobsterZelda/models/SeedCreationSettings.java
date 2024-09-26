@@ -31,6 +31,9 @@ public class SeedCreationSettings {
     private boolean randomizeOOTItems = false; // True if OOT items are both included in the seed and randomized, and false otherwise.
     private boolean randomizeMMItems = false; // True if MM items are both included in the seed and randomized, and false otherwise.
 
+    private boolean allowOOTWarpSongsInMM = false; // True if OOT warp songs work in MM, and false otherwise. If this is not a combo-rando, then this value is set to false and ignored.
+    private boolean allowMMWarpSongInOOT = false; // True if song of soaring can be played in OOT, and false otherwise. If this is not a combo-rando, then this value is set to false and ignored.
+
     public SeedCreationSettings() {}
 
     public boolean isIncludesOOTLocations() {
@@ -169,6 +172,22 @@ public class SeedCreationSettings {
         this.randomizeMMItems = randomizeMMItems;
     }
 
+    public boolean isAllowOOTWarpSongsInMM() {
+        return allowOOTWarpSongsInMM;
+    }
+
+    public void setAllowOOTWarpSongsInMM(boolean allowOOTWarpSongsInMM) {
+        this.allowOOTWarpSongsInMM = allowOOTWarpSongsInMM;
+    }
+
+    public boolean isAllowMMWarpSongInOOT() {
+        return allowMMWarpSongInOOT;
+    }
+
+    public void setAllowMMWarpSongInOOT(boolean allowMMWarpSongInOOT) {
+        this.allowMMWarpSongInOOT = allowMMWarpSongInOOT;
+    }
+
     @Override
     public String toString() {
         return "SeedCreationSettings{" +
@@ -189,6 +208,8 @@ public class SeedCreationSettings {
                 ", decoupledEntrances=" + decoupledEntrances +
                 ", randomizeOOTItems=" + randomizeOOTItems +
                 ", randomizeMMItems=" + randomizeMMItems +
+                ", allowOOTWarpSongsInMM=" + allowOOTWarpSongsInMM +
+                ", allowMMWarpSongInOOT=" + allowMMWarpSongInOOT +
                 '}';
     }
 }
