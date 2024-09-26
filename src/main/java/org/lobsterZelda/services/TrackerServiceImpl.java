@@ -2,30 +2,32 @@ package org.lobsterZelda.services;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import org.lobsterZelda.models.SeedCreationSettings;
 import org.lobsterZelda.repositories.TrackerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
-import java.util.Map;
 
 import static org.lobsterZelda.constants.Constants.JWT_EDITOR_COOKIE_TOKEN_NAME;
 import static org.lobsterZelda.constants.Constants.PUBLIC_TRACKER_ID_SIZE;
 
+@Service
 public class TrackerServiceImpl implements TrackerService {
 
     @Autowired
     private TrackerRepository trackerRepository;
 
     @Override
-    public String generateNewTracker(Map<String, String> settings, HttpServletResponse httpServletResponse) {
+    public String generateNewTracker(SeedCreationSettings seedCreationSettings, HttpServletResponse httpServletResponse) {
         String newPublicTrackerID;
 
         do {
             newPublicTrackerID = generateNewPublicTrackerID();
         } while (trackerRepository.publicIDExistsInDatabase(newPublicTrackerID));
 
-        generatePrivateJWTToken(settings, httpServletResponse);
-        trackerRepository.createNewTracker(newPublicTrackerID, settings);
+        generatePrivateJWTToken(httpServletResponse);
+        trackerRepository.createNewTracker(newPublicTrackerID, seedCreationSettings);
         return newPublicTrackerID;
     }
 
@@ -34,7 +36,7 @@ public class TrackerServiceImpl implements TrackerService {
         return "";
     }
 
-    private void generatePrivateJWTToken(Map<String, String> settings, HttpServletResponse httpServletResponse)
+    private void generatePrivateJWTToken(HttpServletResponse httpServletResponse)
     {
         Cookie jwtTrackerEditToken = new Cookie(JWT_EDITOR_COOKIE_TOKEN_NAME, "emptyVal");
         jwtTrackerEditToken.setSecure(true);

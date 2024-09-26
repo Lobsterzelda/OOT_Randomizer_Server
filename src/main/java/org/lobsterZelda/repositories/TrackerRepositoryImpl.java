@@ -1,7 +1,9 @@
 package org.lobsterZelda.repositories;
 
-import java.util.Map;
+import org.lobsterZelda.models.SeedCreationSettings;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class TrackerRepositoryImpl implements TrackerRepository
 {
 
@@ -11,7 +13,7 @@ public class TrackerRepositoryImpl implements TrackerRepository
     }
 
     @Override
-    public void createNewTracker(String publicTrackerID, Map<String, String> seedSettings) {
+    public void createNewTracker(String publicTrackerID, SeedCreationSettings seedCreationSettings) {
 
     }
 }

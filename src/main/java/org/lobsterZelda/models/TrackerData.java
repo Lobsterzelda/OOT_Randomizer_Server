@@ -5,25 +5,28 @@ import java.util.Map;
 
 public class TrackerData
 {
-    // The settings that the user has enabled for this rando
-    private Map<String, String> seedSettings;
+    // The settings that the user selected when creating the rando.
+    private SeedCreationSettings seedCreationSettings;
 
-    // These 3 variables should be more or less the same for all seeds (except that OOT only seeds contain only OOT data, MM only seeds contain only MM data, and combo-randos contain both).
+    // These 4 variables should be more or less the same for all seeds (except that OOT only seeds contain only OOT data, MM only seeds contain only MM data, and combo-randos contain both).
     private Map<Integer, String> entranceIdentifierToNameMap;
+    private Map<Integer, Boolean> isLocationInOOTMap; // Keys are the identifier of a location, and the value is true if the location is in OOT, and false if the location is in MM. If a location is not listed in this map, then it's not a valid location (or an error has occurred).
     private Map<Integer, String> itemIdentifierToNameMap;
     private Map<Integer, String> itemCheckIdentifierToNameMap;
 
     // The actual data for a specific seed that has been recorded by the user so far
     private Map<Integer, Integer> seedSourceEntranceToDestinationEntranceMap;
     private Map<Integer, Integer> seedItemCheckToItemMap;
+    private Map<Integer, Boolean> isDungeonMQ; // Keys are the identifiers for a dungeon's main entrance (from inside of the dungeon map). The value is true if the dungeon is an MQ dungeon, and false otherwise.
+
     private List<String> reminders;
 
-    public Map<String, String> getSeedSettings() {
-        return seedSettings;
+    public SeedCreationSettings getSeedCreationSettings() {
+        return seedCreationSettings;
     }
 
-    public void setSeedSettings(Map<String, String> seedSettings) {
-        this.seedSettings = seedSettings;
+    public void setSeedCreationSettings(SeedCreationSettings seedCreationSettings) {
+        this.seedCreationSettings = seedCreationSettings;
     }
 
     public Map<Integer, String> getEntranceIdentifierToNameMap() {
@@ -32,6 +35,14 @@ public class TrackerData
 
     public void setEntranceIdentifierToNameMap(Map<Integer, String> entranceIdentifierToNameMap) {
         this.entranceIdentifierToNameMap = entranceIdentifierToNameMap;
+    }
+
+    public Map<Integer, Boolean> getIsLocationInOOTMap() {
+        return isLocationInOOTMap;
+    }
+
+    public void setIsLocationInOOTMap(Map<Integer, Boolean> isLocationInOOTMap) {
+        this.isLocationInOOTMap = isLocationInOOTMap;
     }
 
     public Map<Integer, String> getItemIdentifierToNameMap() {
@@ -73,4 +84,14 @@ public class TrackerData
     public void setReminders(List<String> reminders) {
         this.reminders = reminders;
     }
+
+    public Map<Integer, Boolean> getIsDungeonMQ() {
+        return isDungeonMQ;
+    }
+
+    void setIsDungeonMQ(Map<Integer, Boolean> isDungeonMQ)
+    {
+        this.isDungeonMQ = isDungeonMQ;
+    }
+
 }

@@ -1,11 +1,10 @@
 package org.lobsterZelda.services;
 
 import jakarta.servlet.http.HttpServletResponse;
-
-import java.util.Map;
+import org.lobsterZelda.models.SeedCreationSettings;
 
 public interface TrackerService
 {
-    String generateNewTracker(Map<String, String> settings, HttpServletResponse httpServletResponse);
+    String generateNewTracker(SeedCreationSettings seedCreationSettings, HttpServletResponse httpServletResponse);
     String getTracker(String publicTokenID);
 }
