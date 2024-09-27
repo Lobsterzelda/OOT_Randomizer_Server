@@ -15,7 +15,8 @@ import java.security.InvalidParameterException;
 import java.text.ParseException;
 import java.time.Instant;
 import java.util.Arrays;
-import java.util.Date;
+import java.util.InvalidPropertiesFormatException;
+import java.util.Map;
 
 // The creator of the seed can also give this token to other people that they want to be able to edit the seed on their behalf, like their Twitch mods.
 public class JWTTokenUtils
@@ -42,7 +43,7 @@ public class JWTTokenUtils
             throw new InvalidParameterException("Error: optional username of seed creator must contain only ASCII printable characters.");
 
 
-        final String creationDateTime = Instant.now().toString();
+        final long creationDateTime = Instant.now().getEpochSecond();
 
         JWTPayload jwtPayload = new JWTPayload();
         jwtPayload.setPublicTrackerID(publicTrackerID);
@@ -62,21 +63,48 @@ public class JWTTokenUtils
 
         final String base64JWTString = jwsObject.serialize();
 
-        JWSObject validationObj = JWSObject.parse(base64JWTString);
-        if (!validationObj.verify(new MACVerifier(JWT_SECRET)))
-            throw new RuntimeException("Error: Attempt to validate the JWTToken that was created failed! This indicates an internal server error.");
+        try {
+            verifyJWTTokenAndGetPayload(base64JWTString);
+        } catch (Exception e)
+        {
+            throw new RuntimeException("Error: Attempt to validate JWT token failed immediately after creating the JWT Token! This indicates an internal server error.");
+        }
 
         return base64JWTString;
     }
 
-    public static boolean isJWTTokenValid(String base64EncodedJWTToken)
-    {
-        return false;
+    // This function throws an Exception if the String passed into it doesn't reprrsent a valid JWT for the application.
+    // Otherwise, it returns the parsed contents of the JWT's payload as a JWTPayload object.
+    public static JWTPayload verifyJWTTokenAndGetPayload(String base64EncodedJWTToken) throws ParseException, InvalidPropertiesFormatException {
+        final JWTPayload parsedPayload = new JWTPayload();
+        try {
+            JWSObject jwsObject = JWSObject.parse(base64EncodedJWTToken);
+            if (!jwsObject.verify(new MACVerifier(JWT_SECRET)))
+                throw new RuntimeException("");
+            Map<String, Object> claims = jwsObject.getPayload().toJSONObject();
+            final String publicTrackerID = (String) claims.get(Constants.JWT_PUBLIC_TRACKER_ID_FIELD_NAME);
+            if (!isValidPublicTrackerID(publicTrackerID))
+                throw new RuntimeException("");
+            final Long creationDateTime = (Long) claims.get(Constants.JWT_TRACKER_CREATION_DATE_FIELD_NAME);
+            if (creationDateTime == null || creationDateTime > Instant.now().getEpochSecond())
+                throw new RuntimeException("");
+
+            final String optionalTrackerCreatorUsername = (String) claims.get(Constants.JWT_OPTIONAL_TRACKER_CREATOR_USERNAME);
+
+            parsedPayload.setPublicTrackerID(publicTrackerID);
+            parsedPayload.setTrackerCreationDate(creationDateTime);
+            parsedPayload.setOptionalTrackerCreatorUserName(optionalTrackerCreatorUsername);
+            return parsedPayload;
+        }
+        catch (Exception e)
+        {
+            throw new InvalidPropertiesFormatException("Invalid String passed in for JWT!");
+        }
     }
 
-    public static JWTPayload getJWTPayload(String base64EncodedJWTToken)
+    private static boolean isValidPublicTrackerID(String publicTrackerID)
     {
-        return null;
+        return publicTrackerID != null && isWholeStringAlphaNumeric(publicTrackerID) && publicTrackerID.length() == Constants.PUBLIC_TRACKER_ID_SIZE;
     }
 
     private static boolean isWholeStringAlphaNumeric(String inputString)
@@ -109,8 +137,5 @@ public class JWTTokenUtils
 
         return true;
     }
-
-
-
 
 }

@@ -4,7 +4,7 @@ package org.lobsterZelda.models;
 public class JWTPayload
 {
     private String publicTrackerID;
-    private String trackerCreationDate;
+    private Long trackerCreationDate; // Represents the number of seconds since January 1, 1970 00:00 AM, UTC
     private String optionalTrackerCreatorUserName;
 
     public JWTPayload()
@@ -19,11 +19,11 @@ public class JWTPayload
         this.publicTrackerID = publicTrackerID;
     }
 
-    public String getTrackerCreationDate() {
+    public Long getTrackerCreationDate() {
         return trackerCreationDate;
     }
 
-    public void setTrackerCreationDate(String trackerCreationDate) {
+    public void setTrackerCreationDate(Long trackerCreationDate) {
         this.trackerCreationDate = trackerCreationDate;
     }
 
