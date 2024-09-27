@@ -54,7 +54,7 @@ public class JWTTokenUtils
                 .claim(Constants.JWT_PUBLIC_TRACKER_ID_FIELD_NAME, publicTrackerID)
                 .claim(Constants.JWT_TRACKER_CREATION_DATE_FIELD_NAME, creationDateTime)
                 .claim(Constants.JWT_OPTIONAL_TRACKER_CREATOR_USERNAME, optionalUserName)
-                .issueTime(new Date())
+                .claim("iat", creationDateTime)
                 .build();
 
         JWSObject jwsObject = new JWSObject(new JWSHeader(JWSAlgorithm.HS512), jwtClaimsSet.toPayload());
