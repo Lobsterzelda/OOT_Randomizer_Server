@@ -8,25 +8,22 @@ import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
+import org.lobsterZelda.caches.staticData.JWTSecretKeyCache;
 import org.lobsterZelda.constants.Constants;
 import org.lobsterZelda.models.JWTPayload;
 
 import java.security.InvalidParameterException;
 import java.text.ParseException;
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Map;
+
+import static org.lobsterZelda.utils.LobsterStringUtils.isWholeStringASCIIPrintableChars;
+import static org.lobsterZelda.utils.LobsterStringUtils.isWholeStringAlphaNumeric;
 
 // The creator of the seed can also give this token to other people that they want to be able to edit the seed on their behalf, like their Twitch mods.
 public class JWTTokenUtils
 {
-    private static final byte[] JWT_SECRET = new byte[64]; // TODO: Store this in the environment, and use an actual, secure random value.
-
-    static
-    {
-        Arrays.fill(JWT_SECRET, (byte) 31);
-    }
 
     public static String createNewJWT(String publicTrackerID, String optionalUserName) throws JOSEException, ParseException {
         //SecureRandom secureRandom = new SecureRandom();
@@ -59,12 +56,14 @@ public class JWTTokenUtils
 
         JWSObject jwsObject = new JWSObject(new JWSHeader(JWSAlgorithm.HS512), jwtClaimsSet.toPayload());
 
-        jwsObject.sign(new MACSigner(JWT_SECRET));
+        // Use the most recent JWT version when generating a new JWT.
+        Long currentJWTVersion = JWTSecretKeyCache.getMostRecentJWTVersionNumber();
+        jwsObject.sign(new MACSigner(JWTSecretKeyCache.getSecretKeyForVersion(currentJWTVersion)));
 
         final String base64JWTString = jwsObject.serialize();
 
         try {
-            verifyJWTTokenAndGetPayload(base64JWTString);
+            verifyJWTTokenAndGetPayload(base64JWTString, currentJWTVersion);
         } catch (Exception e)
         {
             throw new RuntimeException("Error: Attempt to validate JWT token failed immediately after creating the JWT Token! This indicates an internal server error.");
@@ -73,13 +72,13 @@ public class JWTTokenUtils
         return base64JWTString;
     }
 
-    // This function throws an Exception if the String passed into it doesn't reprrsent a valid JWT for the application.
+    // This function throws an Exception if the String passed into it doesn't represent a valid JWT for the application.
     // Otherwise, it returns the parsed contents of the JWT's payload as a JWTPayload object.
-    public static JWTPayload verifyJWTTokenAndGetPayload(String base64EncodedJWTToken) throws ParseException, InvalidPropertiesFormatException {
+    public static JWTPayload verifyJWTTokenAndGetPayload(String base64EncodedJWTToken, Long jwtVersion) throws ParseException, InvalidPropertiesFormatException {
         final JWTPayload parsedPayload = new JWTPayload();
         try {
             JWSObject jwsObject = JWSObject.parse(base64EncodedJWTToken);
-            if (!jwsObject.verify(new MACVerifier(JWT_SECRET)))
+            if (!jwsObject.verify(new MACVerifier(JWTSecretKeyCache.getSecretKeyForVersion(jwtVersion))))
                 throw new RuntimeException("");
             Map<String, Object> claims = jwsObject.getPayload().toJSONObject();
             final String publicTrackerID = (String) claims.get(Constants.JWT_PUBLIC_TRACKER_ID_FIELD_NAME);
@@ -105,37 +104,6 @@ public class JWTTokenUtils
     private static boolean isValidPublicTrackerID(String publicTrackerID)
     {
         return publicTrackerID != null && isWholeStringAlphaNumeric(publicTrackerID) && publicTrackerID.length() == Constants.PUBLIC_TRACKER_ID_SIZE;
-    }
-
-    private static boolean isWholeStringAlphaNumeric(String inputString)
-    {
-        if (inputString == null)
-            return true;
-        int strLength = inputString.length();
-
-        for (int i = 0; i < strLength; ++i)
-        {
-            if (!Character.isLetterOrDigit(inputString.charAt(i)))
-                return false;
-        }
-        return true;
-    }
-
-    private static boolean isWholeStringASCIIPrintableChars(String inputString)
-    {
-        if (inputString == null)
-            return true;
-        int strLength = inputString.length();
-
-        for (int i = 0; i < strLength; ++i)
-        {
-            char currentChar = inputString.charAt(i);
-
-            if (currentChar < 0x20 || currentChar >= 0x7F)
-                return false;
-        }
-
-        return true;
     }
 
 }
