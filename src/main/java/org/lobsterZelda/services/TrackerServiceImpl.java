@@ -74,7 +74,7 @@ public class TrackerServiceImpl implements TrackerService {
             int charsGenerated = 0;
             StringBuilder newPublicTrackerId = new StringBuilder();
             while (charsGenerated < PUBLIC_TRACKER_ID_SIZE) {
-                char nextRandChar = alphaNumericCharsArray[secureRandom.nextInt() % ALPHA_NUMERIC_CHAR_ARRAY_SIZE];
+                char nextRandChar = alphaNumericCharsArray[secureRandom.nextInt(ALPHA_NUMERIC_CHAR_ARRAY_SIZE)];
                 ++charsGenerated;
             }
             return newPublicTrackerId.toString();
