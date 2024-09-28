@@ -6,7 +6,6 @@ public class SeedCreationSettings {
     // A valid seed must have one or both of the "includesOOTLocations" and "includesMMLocations"
     // variables set to true in order to be a valid seed
     // (otherwise, no locations from OOT or MM would be in the seed, which makes no sense).
-
     private boolean includesOOTLocations = false; // True if OOT locations are in the seed, and false otherwise.
     private boolean includeMQDungeons = false; // True if MQ dungeons are in the OOT dungeon pool, and false otherwise.
     private boolean includesMMLocations = false; // True if MM locations are in the seed, and false otherwise.
@@ -33,6 +32,8 @@ public class SeedCreationSettings {
 
     private boolean allowOOTWarpSongsInMM = false; // True if OOT warp songs work in MM, and false otherwise. If this is not a combo-rando, then this value is set to false and ignored.
     private boolean allowMMWarpSongInOOT = false; // True if song of soaring can be played in OOT, and false otherwise. If this is not a combo-rando, then this value is set to false and ignored.
+
+    private String optionalTrackerCreatorUserName =  null; // The user can optionally set a username to be associated with their Tracker.
 
     public SeedCreationSettings() {}
 
@@ -188,6 +189,14 @@ public class SeedCreationSettings {
         this.allowMMWarpSongInOOT = allowMMWarpSongInOOT;
     }
 
+    public String getOptionalTrackerCreatorUserName() {
+        return optionalTrackerCreatorUserName;
+    }
+
+    public void setOptionalTrackerCreatorUserName(String optionalTrackerCreatorUserName) {
+        this.optionalTrackerCreatorUserName = optionalTrackerCreatorUserName;
+    }
+
     @Override
     public String toString() {
         return "SeedCreationSettings{" +
@@ -210,6 +219,7 @@ public class SeedCreationSettings {
                 ", randomizeMMItems=" + randomizeMMItems +
                 ", allowOOTWarpSongsInMM=" + allowOOTWarpSongsInMM +
                 ", allowMMWarpSongInOOT=" + allowMMWarpSongInOOT +
+                ", optionalTrackerCreatorUserName=" + optionalTrackerCreatorUserName +
                 '}';
     }
 }

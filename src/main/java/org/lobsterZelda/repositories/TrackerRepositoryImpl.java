@@ -13,7 +13,7 @@ public class TrackerRepositoryImpl implements TrackerRepository
     }
 
     @Override
-    public void createNewTracker(String publicTrackerID, SeedCreationSettings seedCreationSettings) {
+    public void createNewTracker(String publicTrackerID, SeedCreationSettings seedCreationSettings, String base64EncodedJWTString) {
 
     }
 }

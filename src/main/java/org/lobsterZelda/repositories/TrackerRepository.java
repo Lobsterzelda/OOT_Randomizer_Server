@@ -5,5 +5,5 @@ import org.lobsterZelda.models.SeedCreationSettings;
 public interface TrackerRepository
 {
     boolean publicIDExistsInDatabase(String publicTrackerID);
-    void createNewTracker(String publicTrackerID, SeedCreationSettings seedCreationSettings);
+    void createNewTracker(String publicTrackerID, SeedCreationSettings seedCreationSettings, String base64EncodedJWTString);
 }

@@ -1,13 +1,16 @@
 package org.lobsterZelda.services;
 
+import com.nimbusds.jose.JOSEException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.lobsterZelda.models.SeedCreationSettings;
 import org.lobsterZelda.repositories.TrackerRepository;
+import org.lobsterZelda.utils.JWTTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
+import java.text.ParseException;
 
 import static org.lobsterZelda.constants.Constants.JWT_EDITOR_COOKIE_TOKEN_NAME;
 import static org.lobsterZelda.constants.Constants.PUBLIC_TRACKER_ID_SIZE;
@@ -21,13 +24,20 @@ public class TrackerServiceImpl implements TrackerService {
     @Override
     public String generateNewTracker(SeedCreationSettings seedCreationSettings, HttpServletResponse httpServletResponse) {
         String newPublicTrackerID;
+        String base64EncodedJWT;
 
         do {
             newPublicTrackerID = generateNewPublicTrackerID();
         } while (trackerRepository.publicIDExistsInDatabase(newPublicTrackerID));
 
-        generatePrivateJWTToken(httpServletResponse);
-        trackerRepository.createNewTracker(newPublicTrackerID, seedCreationSettings);
+        try {
+            base64EncodedJWT = generatePrivateJWTTokenAndAddAsCookie(newPublicTrackerID, seedCreationSettings.getOptionalTrackerCreatorUserName(), httpServletResponse);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e.getMessage());
+        }
+        trackerRepository.createNewTracker(newPublicTrackerID, seedCreationSettings, base64EncodedJWT);
         return newPublicTrackerID;
     }
 
@@ -36,13 +46,14 @@ public class TrackerServiceImpl implements TrackerService {
         return "";
     }
 
-    private void generatePrivateJWTToken(HttpServletResponse httpServletResponse)
-    {
-        Cookie jwtTrackerEditToken = new Cookie(JWT_EDITOR_COOKIE_TOKEN_NAME, "emptyVal");
+    private String generatePrivateJWTTokenAndAddAsCookie(String newPublicTrackerID, String optionalTrackerCreatorUserName, HttpServletResponse httpServletResponse) throws ParseException, JOSEException {
+        final String base64EncodedJWTString = JWTTokenUtils.createNewJWT(newPublicTrackerID, optionalTrackerCreatorUserName);
+        Cookie jwtTrackerEditToken = new Cookie(JWT_EDITOR_COOKIE_TOKEN_NAME, base64EncodedJWTString);
         jwtTrackerEditToken.setSecure(true);
         jwtTrackerEditToken.setHttpOnly(false);
         jwtTrackerEditToken.setMaxAge(Integer.MAX_VALUE - 2);
         httpServletResponse.addCookie(jwtTrackerEditToken);
+        return base64EncodedJWTString;
     }
 
     private static final char[] alphaNumericCharsArray = {
