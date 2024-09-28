@@ -42,22 +42,25 @@ public class JWTTokenUtils
 
         final long creationDateTime = Instant.now().getEpochSecond();
 
+        // Use the most recent JWT version when generating a new JWT.
+        Long currentJWTVersion = JWTSecretKeyCache.getMostRecentJWTVersionNumber();
+
         JWTPayload jwtPayload = new JWTPayload();
         jwtPayload.setPublicTrackerID(publicTrackerID);
         jwtPayload.setTrackerCreationDate(creationDateTime);
         jwtPayload.setOptionalTrackerCreatorUserName(optionalUserName);
+        jwtPayload.setJwtVersionNumber(currentJWTVersion);
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
                 .serializeNullClaims(true)
                 .claim(Constants.JWT_PUBLIC_TRACKER_ID_FIELD_NAME, publicTrackerID)
                 .claim(Constants.JWT_TRACKER_CREATION_DATE_FIELD_NAME, creationDateTime)
-                .claim(Constants.JWT_OPTIONAL_TRACKER_CREATOR_USERNAME, optionalUserName)
+                .claim(Constants.JWT_OPTIONAL_TRACKER_CREATOR_USERNAME_FIELD_NAME, optionalUserName)
+                .claim(Constants.JWT_VERSION_NUMBER_FIELD_NAME, currentJWTVersion)
                 .build();
 
         JWSObject jwsObject = new JWSObject(new JWSHeader(JWSAlgorithm.HS512), jwtClaimsSet.toPayload());
 
-        // Use the most recent JWT version when generating a new JWT.
-        Long currentJWTVersion = JWTSecretKeyCache.getMostRecentJWTVersionNumber();
         jwsObject.sign(new MACSigner(JWTSecretKeyCache.getSecretKeyForVersion(currentJWTVersion)));
 
         final String base64JWTString = jwsObject.serialize();
@@ -74,11 +77,11 @@ public class JWTTokenUtils
 
     // This function throws an Exception if the String passed into it doesn't represent a valid JWT for the application.
     // Otherwise, it returns the parsed contents of the JWT's payload as a JWTPayload object.
-    public static JWTPayload verifyJWTTokenAndGetPayload(String base64EncodedJWTToken, Long jwtVersion) throws ParseException, InvalidPropertiesFormatException {
+    public static JWTPayload verifyJWTTokenAndGetPayload(String base64EncodedJWTToken, Long expectedJWTVersionOfToken) throws ParseException, InvalidPropertiesFormatException {
         final JWTPayload parsedPayload = new JWTPayload();
         try {
             JWSObject jwsObject = JWSObject.parse(base64EncodedJWTToken);
-            if (!jwsObject.verify(new MACVerifier(JWTSecretKeyCache.getSecretKeyForVersion(jwtVersion))))
+            if (!jwsObject.verify(new MACVerifier(JWTSecretKeyCache.getSecretKeyForVersion(expectedJWTVersionOfToken))))
                 throw new RuntimeException("");
             Map<String, Object> claims = jwsObject.getPayload().toJSONObject();
             final String publicTrackerID = (String) claims.get(Constants.JWT_PUBLIC_TRACKER_ID_FIELD_NAME);
@@ -88,11 +91,15 @@ public class JWTTokenUtils
             if (creationDateTime == null || creationDateTime > Instant.now().getEpochSecond())
                 throw new RuntimeException("");
 
-            final String optionalTrackerCreatorUsername = (String) claims.get(Constants.JWT_OPTIONAL_TRACKER_CREATOR_USERNAME);
+            final String optionalTrackerCreatorUsername = (String) claims.get(Constants.JWT_OPTIONAL_TRACKER_CREATOR_USERNAME_FIELD_NAME);
+            final Long actualJwtVersionInToken = (Long) claims.get(Constants.JWT_VERSION_NUMBER_FIELD_NAME);
+            if (actualJwtVersionInToken == null || !actualJwtVersionInToken.equals(expectedJWTVersionOfToken))
+                throw new RuntimeException("");
 
             parsedPayload.setPublicTrackerID(publicTrackerID);
             parsedPayload.setTrackerCreationDate(creationDateTime);
             parsedPayload.setOptionalTrackerCreatorUserName(optionalTrackerCreatorUsername);
+            parsedPayload.setJwtVersionNumber(actualJwtVersionInToken);
             return parsedPayload;
         }
         catch (Exception e)
