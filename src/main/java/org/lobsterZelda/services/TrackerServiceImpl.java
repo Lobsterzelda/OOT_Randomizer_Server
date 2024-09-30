@@ -24,7 +24,7 @@ public class TrackerServiceImpl implements TrackerService {
 
     @Autowired
     private CreateTablesAndReferenceDataRepository createTablesAndReferenceDataRepository;
-    
+
     @Override
     public String generateNewTracker(SeedCreationSettings seedCreationSettings, HttpServletResponse httpServletResponse) {
         String newPublicTrackerID;
