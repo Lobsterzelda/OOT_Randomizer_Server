@@ -48,7 +48,14 @@ public class CreateTablesAndReferenceDataRepositoryImpl implements CreateTablesA
 
     private void deleteJwtVersionTable()
     {
-        Map<String, Object> params = new HashMap<>();
-        namedParameterJdbcTemplate.update(DELETE_JWT_VERSION_TABLE, params);
+        try
+        {
+            Map<String, Object> params = new HashMap<>();
+            namedParameterJdbcTemplate.update(DELETE_JWT_VERSION_TABLE, params);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }
