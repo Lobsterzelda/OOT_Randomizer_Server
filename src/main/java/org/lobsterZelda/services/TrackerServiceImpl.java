@@ -4,6 +4,7 @@ import com.nimbusds.jose.JOSEException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.lobsterZelda.models.SeedCreationSettings;
+import org.lobsterZelda.repositories.CreateTablesAndReferenceDataRepository;
 import org.lobsterZelda.repositories.TrackerRepository;
 import org.lobsterZelda.utils.JWTTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class TrackerServiceImpl implements TrackerService {
     @Autowired
     private TrackerRepository trackerRepository;
 
+    @Autowired
+    private CreateTablesAndReferenceDataRepository createTablesAndReferenceDataRepository;
+    
     @Override
     public String generateNewTracker(SeedCreationSettings seedCreationSettings, HttpServletResponse httpServletResponse) {
         String newPublicTrackerID;
