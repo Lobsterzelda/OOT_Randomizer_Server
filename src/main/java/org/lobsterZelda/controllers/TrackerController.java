@@ -27,6 +27,7 @@ public class TrackerController
     @GetMapping("/test")
     public ResponseEntity<String> testMethod()
     {
+        trackerService.testMethod();
         return new ResponseEntity<>("testing...", HttpStatus.OK);
     }
 

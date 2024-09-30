@@ -7,4 +7,5 @@ public interface TrackerService
 {
     String generateNewTracker(SeedCreationSettings seedCreationSettings, HttpServletResponse httpServletResponse);
     String getTracker(String publicTokenID);
+    void testMethod();
 }
