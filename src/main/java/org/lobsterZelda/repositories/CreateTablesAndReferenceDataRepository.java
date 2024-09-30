@@ -2,5 +2,6 @@ package org.lobsterZelda.repositories;
 
 public interface CreateTablesAndReferenceDataRepository
 {
-    void createJwtVersionTable();
+    void createAndInitializeAllTables();
+    void deleteAllTables();
 }
