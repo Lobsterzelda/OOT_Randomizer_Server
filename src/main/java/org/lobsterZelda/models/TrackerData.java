@@ -1,7 +1,11 @@
 package org.lobsterZelda.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class TrackerData
 {
@@ -19,9 +23,20 @@ public class TrackerData
     private Map<Integer, Integer> seedItemCheckToItemMap;
     private Map<Integer, Boolean> isDungeonMQ; // Keys are the identifiers for a dungeon's main entrance (from inside of the dungeon map). The value is true if the dungeon is an MQ dungeon, and false otherwise.
 
-    private Boolean isAdult; // True if currently an adult, and false if currently a child.
-
     private List<String> reminders;
+
+    // This value is true if a TrackerData was last added to the cache on a write/modify operation, and false otherwise.
+    // We load TrackerData into the cache when the first read or write to the Tracker happens.
+    // However, the first attempt to alter the Tracker will cause the Tracker to be loaded again into the cache, with this value set to true.
+    // From here, the full Tracker data won't be re-loaded from the database into the cache until the cache is cleared.
+    @JsonIgnore
+    private Boolean loadedFromWrite;
+
+    // This lock needs to be acquired/locked before the TrackerData can be modified.
+    // However, read-only operations on the TrackerData (such as the call to get the Tracker associated with a given publicTrackerID)
+    // do not attempt to acquire the lock. That way, reads and writes can occur at the same time.
+    @JsonIgnore
+    private final Lock writeLock = new ReentrantLock();
 
     public SeedCreationSettings getSeedCreationSettings() {
         return seedCreationSettings;
@@ -96,12 +111,16 @@ public class TrackerData
         this.isDungeonMQ = isDungeonMQ;
     }
 
-    public Boolean getAdult() {
-        return isAdult;
+    public Boolean getLoadedFromWrite() {
+        return loadedFromWrite;
     }
 
-    public void setAdult(Boolean adult) {
-        this.isAdult = adult;
+    public void setLoadedFromWrite(Boolean loadedFromWrite) {
+        this.loadedFromWrite = loadedFromWrite;
     }
 
+    public Lock getWriteLock()
+    {
+        return writeLock;
+    }
 }
