@@ -92,6 +92,7 @@ public class TrackerServiceImpl implements TrackerService {
     @Override
     public void testMethod()
     {
+        createTablesAndReferenceDataRepository.deleteAllTables();
         createTablesAndReferenceDataRepository.createAndInitializeAllTables();
     }
 }
