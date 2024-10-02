@@ -3,7 +3,8 @@ package org.lobsterZelda.models;
 // There are 2 types of Entrance objects: Those that represent a map (ex. "Fire Temple"), and those that represent entrances within a map (ex. "Fire Temple to DMC exit")
 public class Entrance
 {
-    private Integer entranceID; // The ID for a location/map (ex. 1). 1 is the first map/area. Negative values represent special entrances, like warp songs and owl warps. 0 is unused.
+    private Integer entranceID; // The ID for a location/map (ex. 1). 0 is the first map/area. Negative values represent special entrances, like warp songs and owl warps.
+    private Integer mapEntranceID; // The ID of the map containing the entrance. If the entrance is a map, then this value is set to -1.
     private String entranceName; // The printable name for a location/map (ex. "Spirit Temple main entrance to Desert Colossus").
 
     private Boolean isOOTOwlEntrance; // True if this is a Kappora Gaebora flight in OOT (either the  owl at Lake Hylia or the top of DMT), and false otherwise.
@@ -25,4 +26,164 @@ public class Entrance
     private Boolean isOOTToMMEntrance; // True if this is the spot that leads from OOT to MM (i.e. the Happy Mask Shop), and false otherwise.
     private Boolean isChildOnlyEntrance; // True if only child can access the entrance, and false otherwise.
     private Boolean isAdultOnlyEntrance; // True if only adult can access the entrance, and false otherwise.
+
+    public Integer getEntranceID() {
+        return entranceID;
+    }
+
+    public void setEntranceID(Integer entranceID) {
+        this.entranceID = entranceID;
+    }
+
+    public Integer getMapEntranceID() {
+        return mapEntranceID;
+    }
+
+    public void setMapEntranceID(Integer mapEntranceID) {
+        this.mapEntranceID = mapEntranceID;
+    }
+
+    public String getEntranceName() {
+        return entranceName;
+    }
+
+    public void setEntranceName(String entranceName) {
+        this.entranceName = entranceName;
+    }
+
+    public Boolean getIsOOTOwlEntrance() {
+        return isOOTOwlEntrance;
+    }
+
+    public void setIsOOTOwlEntrance(Boolean OOTOwlEntrance) {
+        isOOTOwlEntrance = OOTOwlEntrance;
+    }
+
+    public Boolean getIsOOTWarpSong() {
+        return isOOTWarpSong;
+    }
+
+    public void setIsOOTWarpSong(Boolean OOTWarpSong) {
+        isOOTWarpSong = OOTWarpSong;
+    }
+
+    public Boolean getIsOOTChildSaveWarp() {
+        return isOOTChildSaveWarp;
+    }
+
+    public void setIsOOTChildSaveWarp(Boolean OOTChildSaveWarp) {
+        isOOTChildSaveWarp = OOTChildSaveWarp;
+    }
+
+    public Boolean getIsOOTAdultSaveWarp() {
+        return isOOTAdultSaveWarp;
+    }
+
+    public void setIsOOTAdultSaveWarp(Boolean OOTAdultSaveWarp) {
+        isOOTAdultSaveWarp = OOTAdultSaveWarp;
+    }
+
+    public Boolean getIsMMSaveWarp() {
+        return isMMSaveWarp;
+    }
+
+    public void setIsMMSaveWarp(Boolean MMSaveWarp) {
+        isMMSaveWarp = MMSaveWarp;
+    }
+
+    public Boolean getIsMMSongOfSoaringWarp() {
+        return isMMSongOfSoaringWarp;
+    }
+
+    public void setIsMMSongOfSoaringWarp(Boolean MMSongOfSoaringWarp) {
+        isMMSongOfSoaringWarp = MMSongOfSoaringWarp;
+    }
+
+    public Boolean getIsWallmasterWarp() {
+        return isWallmasterWarp;
+    }
+
+    public void setIsWallmasterWarp(Boolean wallmasterWarp) {
+        isWallmasterWarp = wallmasterWarp;
+    }
+
+    public Boolean getIsVoidPointWarp() {
+        return isVoidPointWarp;
+    }
+
+    public void setIsVoidPointWarp(Boolean voidPointWarp) {
+        isVoidPointWarp = voidPointWarp;
+    }
+
+    public Boolean getIsOOTEntrance() {
+        return isOOTEntrance;
+    }
+
+    public void setIsOOTEntrance(Boolean OOTEntrance) {
+        isOOTEntrance = OOTEntrance;
+    }
+
+    public Boolean getIsInDungeon() {
+        return isInDungeon;
+    }
+
+    public void setIsInDungeon(Boolean inDungeon) {
+        isInDungeon = inDungeon;
+    }
+
+    public Boolean getIsBossRoom() {
+        return isBossRoom;
+    }
+
+    public void setIsBossRoom(Boolean bossRoom) {
+        isBossRoom = bossRoom;
+    }
+
+    public Boolean getIsInGrotto() {
+        return isInGrotto;
+    }
+
+    public void setIsInGrotto(Boolean inGrotto) {
+        isInGrotto = inGrotto;
+    }
+
+    public Boolean getIsInHouse() {
+        return isInHouse;
+    }
+
+    public void setIsInHouse(Boolean inHouse) {
+        isInHouse = inHouse;
+    }
+
+    public Boolean getIsAMap() {
+        return isAMap;
+    }
+
+    public void setIsAMap(Boolean AMap) {
+        isAMap = AMap;
+    }
+
+    public Boolean getIsOOTToMMEntrance() {
+        return isOOTToMMEntrance;
+    }
+
+    public void setIsOOTToMMEntrance(Boolean OOTToMMEntrance) {
+        isOOTToMMEntrance = OOTToMMEntrance;
+    }
+
+    public Boolean getIsChildOnlyEntrance() {
+        return isChildOnlyEntrance;
+    }
+
+    public void setIsChildOnlyEntrance(Boolean childOnlyEntrance) {
+        isChildOnlyEntrance = childOnlyEntrance;
+    }
+
+    public Boolean getIsAdultOnlyEntrance() {
+        return isAdultOnlyEntrance;
+    }
+
+    public void setIsAdultOnlyEntrance(Boolean adultOnlyEntrance) {
+        isAdultOnlyEntrance = adultOnlyEntrance;
+    }
 }

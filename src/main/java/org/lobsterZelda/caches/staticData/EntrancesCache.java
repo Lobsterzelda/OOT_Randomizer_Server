@@ -1,11 +1,15 @@
 package org.lobsterZelda.caches.staticData;
 
 import org.lobsterZelda.constants.Constants;
+import org.lobsterZelda.models.Entrance;
 import org.lobsterZelda.models.EntranceGraph;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EntrancesCache
 {
@@ -98,10 +102,41 @@ public class EntrancesCache
             query.append(" isVoidPointWarp = false");
         }
 
+        // This map contains only Entrances which represent an area map. The keys of the map are the ID of the map, and the value is their associated EntranceObject
+        Map<Integer, Entrance> idOfMapToEntranceObject = new HashMap<>();
+
         namedParameterJdbcTemplate.query(query.toString(), resultSet -> {
             while (resultSet.next())
             {
+                Entrance nextEntrance = new Entrance();
 
+                nextEntrance.setEntranceID(resultSet.getInt(Constants.ENTRANCE_ID_COLUMN_NAME));
+                nextEntrance.setMapEntranceID(resultSet.getInt(Constants.MAP_ENTRANCE_ID_COLUMN_NAME));
+                nextEntrance.setEntranceName(resultSet.getString(Constants.ENTRANCE_NAME_COLUMN_NAME));
+                nextEntrance.setIsOOTOwlEntrance(resultSet.getBoolean(Constants.IS_OOT_OWL_ENTRANCE_COLUMN_NAME));
+                nextEntrance.setIsOOTWarpSong(resultSet.getBoolean(Constants.IS_OOT_WARP_SONG_COLUMN_NAME));
+                nextEntrance.setIsOOTChildSaveWarp(resultSet.getBoolean(Constants.IS_OOT_CHILD_SAVE_WARP_COLUMN_NAME));
+                nextEntrance.setIsOOTAdultSaveWarp(resultSet.getBoolean(Constants.IS_OOT_ADULT_SAVE_WARP_COLUMN_NAME));
+                nextEntrance.setIsMMSaveWarp(resultSet.getBoolean(Constants.IS_MM_SAVE_WARP_COLUMN_NAME));
+                nextEntrance.setIsMMSongOfSoaringWarp(resultSet.getBoolean(Constants.IS_MM_SONG_OF_SOARING_WARP_COLUMN_NAME));
+                nextEntrance.setIsWallmasterWarp(resultSet.getBoolean(Constants.IS_WALLMASTER_WARP_COLUMN_NAME));
+                nextEntrance.setIsVoidPointWarp(resultSet.getBoolean(Constants.IS_VOID_POINT_WARP_COLUMN_NAME));
+                nextEntrance.setIsOOTEntrance(resultSet.getBoolean(Constants.IS_OOT_ENTRANCE_COLUMN_NAME));
+                nextEntrance.setIsInDungeon(resultSet.getBoolean(Constants.IS_IN_DUNGEON_COLUMNN_NAME));
+                nextEntrance.setIsBossRoom(resultSet.getBoolean(Constants.IS_BOSS_ROOM_COLUMN_NAME));
+                nextEntrance.setIsInGrotto(resultSet.getBoolean(Constants.IS_IN_GROTTO_COLUMN_NAME));
+                nextEntrance.setIsInHouse(resultSet.getBoolean(Constants.IS_IN_HOUSE_COLUMN_NAME));
+                nextEntrance.setIsAMap(resultSet.getBoolean(Constants.IS_A_MAP_COLUMN_NAME));
+                nextEntrance.setIsOOTToMMEntrance(resultSet.getBoolean(Constants.IS_OOT_TO_MM_ENTRANCE_COLUMN_NAME));
+                nextEntrance.setIsChildOnlyEntrance(resultSet.getBoolean(Constants.IS_CHILD_ONLY_ENTRANCE_COLUMN_NAME));
+                nextEntrance.setIsAdultOnlyEntrance(resultSet.getBoolean(Constants.IS_ADULT_ONLY_ENTRANCE_COLUMN_NAME));
+
+                if (nextEntrance.getIsAMap())
+                    idOfMapToEntranceObject.put(nextEntrance.getEntranceID(), nextEntrance);
+
+                entranceGraph.getIdToEntranceMap().put(nextEntrance.getMapEntranceID(), nextEntrance);
+                entranceGraph.getNameToEntranceMap().put(nextEntrance.getEntranceName(), nextEntrance);
+                entranceGraph.getIdToConnectedEntrancesAdjacencyList().put(nextEntrance.getEntranceID(), new ArrayList<>());
             }
             return null;
         });
