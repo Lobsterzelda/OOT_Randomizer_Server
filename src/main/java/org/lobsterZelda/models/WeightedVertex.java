@@ -6,6 +6,12 @@ public class WeightedVertex
     Integer destinationID;
     Integer weight;
 
+    public WeightedVertex(Integer newDestinationID, Integer newWeight)
+    {
+        this.destinationID = newDestinationID;
+        this.weight = newWeight;
+    }
+
     public Integer getDestinationID() {
         return destinationID;
     }

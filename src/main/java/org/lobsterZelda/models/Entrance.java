@@ -4,7 +4,7 @@ package org.lobsterZelda.models;
 public class Entrance
 {
     private Integer entranceID; // The ID for a location/map (ex. 1). 0 is the first map/area. Negative values represent special entrances, like warp songs and owl warps.
-    private Integer mapEntranceID; // The ID of the map containing the entrance. If the entrance is a map, then this value is set to -1.
+    private Integer mapEntranceID; // The ID of the map containing the entrance. If the entrance is a map, then this value is set to -1. Also, special entrances that don't exist inside of a map like childSaveWarp have a value of -1 for mapEntranceID as well.
     private String entranceName; // The printable name for a location/map (ex. "Spirit Temple main entrance to Desert Colossus").
 
     private Boolean isOOTOwlEntrance; // True if this is a Kappora Gaebora flight in OOT (either the  owl at Lake Hylia or the top of DMT), and false otherwise.
