@@ -27,6 +27,12 @@ public final class Constants {
     public static final String TRACKER_REMINDERS_TABLE_NAME = "tracker_reminders";
     public static final String TRACKER_MQ_DUNGEONS_TABLE_NAME = "tracker_mq_dungeons";
 
+    // Static jwt_versions table column names
+    public static final String JWT_VERSION_ID_COLUMN_NAME = "id";
+    public static final String JWT_VERSION_CREATION_DATE_COLUMN_NAME = "version_creation_date";
+    public static final String JWT_VERSION_EXPIRATION_DATE_COLUMN_NAME = "version_expiration_date";
+
+
     // Static entrance table column names
     public static final String ENTRANCE_ID_COLUMN_NAME = "entranceId";
     public static final String MAP_ENTRANCE_ID_COLUMN_NAME = "mapEntranceId";

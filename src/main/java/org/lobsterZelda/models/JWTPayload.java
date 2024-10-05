@@ -6,7 +6,7 @@ public class JWTPayload
     private String publicTrackerID;
     private Long trackerCreationDate; // Represents the number of seconds since January 1, 1970 00:00 AM, UTC
     private String optionalTrackerCreatorUserName;
-    private Long jwtVersionNumber;
+    private Integer jwtVersionNumber;
 
     public JWTPayload()
     {
@@ -36,11 +36,11 @@ public class JWTPayload
         this.optionalTrackerCreatorUserName = optionalTrackerCreatorUserName;
     }
 
-    public Long getJwtVersionNumber() {
+    public Integer getJwtVersionNumber() {
         return jwtVersionNumber;
     }
 
-    public void setJwtVersionNumber(Long jwtVersionNumber) {
+    public void setJwtVersionNumber(Integer jwtVersionNumber) {
         this.jwtVersionNumber = jwtVersionNumber;
     }
 

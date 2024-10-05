@@ -23,8 +23,8 @@ public class CreateTablesAndReferenceDataRepositoryImpl implements CreateTablesA
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    private static final String CREATE_JWT_VERSION_TABLE_QUERY = "CREATE TABLE " + Constants.JWT_VERSION_TABLE_NAME + " (id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, version_creation_date DATETIME NOT NULL, version_expiration_date DATETIME NOT NULL, comment varchar(255))";
-    private static final String ADD_IN_FIRST_JWT_VERSION_QUERY = "INSERT INTO " + Constants.JWT_VERSION_TABLE_NAME + " (version_creation_date, version_expiration_date, comment) VALUES(CURRENT_TIMESTAMP, '9999-12-31 23:59:59', 'First JWT Version')";
+    private static final String CREATE_JWT_VERSION_TABLE_QUERY = "CREATE TABLE " + Constants.JWT_VERSION_TABLE_NAME + " (" + Constants.JWT_VERSION_ID_COLUMN_NAME + " INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, " + Constants.JWT_VERSION_CREATION_DATE_COLUMN_NAME + " DATETIME NOT NULL, " + Constants.JWT_VERSION_EXPIRATION_DATE_COLUMN_NAME + " DATETIME NOT NULL, comment varchar(255))";
+    private static final String ADD_IN_FIRST_JWT_VERSION_QUERY = "INSERT INTO " + Constants.JWT_VERSION_TABLE_NAME + " (" + Constants.JWT_VERSION_CREATION_DATE_COLUMN_NAME + ", " + Constants.JWT_VERSION_EXPIRATION_DATE_COLUMN_NAME + ", comment) VALUES(CURRENT_TIMESTAMP, '9999-12-31 23:59:59', 'First JWT Version')";
     private static final String DELETE_JWT_VERSION_TABLE = "DROP TABLE " + Constants.JWT_VERSION_TABLE_NAME;
 
     @Override

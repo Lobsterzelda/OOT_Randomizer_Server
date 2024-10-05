@@ -10,6 +10,7 @@ public class JWTSecretKeyCache {
     // There should really only be 1 secret key version - unless the JWT secret is discovered
     // and needs to be updated, at which point a version 2 would be made.
     private static final Map<Long, byte[]> jwtVersionToSecretKeyMap = new ConcurrentHashMap<>();
+    private static Integer currentJwtVersion = null;
 
     private static final byte[] JWT_SECRET = new byte[64]; // TODO: Store this in a secret file in the environment (which will be loaded at runtime), and use an actual, secure random value.
 
@@ -18,7 +19,7 @@ public class JWTSecretKeyCache {
         Arrays.fill(JWT_SECRET, (byte) 31);
     }
 
-    public static byte[] getSecretKeyForVersion(Long jwtVersion)
+    public static byte[] getSecretKeyForVersion(Integer jwtVersion)
     {
         return jwtVersionToSecretKeyMap.get(jwtVersion);
     }
@@ -28,7 +29,12 @@ public class JWTSecretKeyCache {
         jwtVersionToSecretKeyMap.put(Long.valueOf(1), JWT_SECRET); // TODO: Actually set this to the right secret enviroment file.
     }
 
-    public static Long getMostRecentJWTVersionNumber() {
-        return Long.valueOf(1);
+    public static int getMostRecentJWTVersionNumber() {
+        return currentJwtVersion;
+    }
+
+    public static void setMostRecentJWTVersionNumber(Integer newVersionNum)
+    {
+        currentJwtVersion = newVersionNum;
     }
 }
