@@ -2,22 +2,26 @@ package org.lobsterZelda.services;
 
 import jakarta.annotation.PostConstruct;
 import org.lobsterZelda.caches.staticData.EntrancesCache;
+import org.lobsterZelda.caches.staticData.JWTSecretKeyCache;
 import org.lobsterZelda.constants.Constants;
 import org.lobsterZelda.models.Entrance;
 import org.lobsterZelda.models.EntranceGraph;
 import org.lobsterZelda.models.WeightedVertex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidParameterException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +29,9 @@ import java.util.Map;
 public class StaticCacheBuilderServiceImpl implements StaticCacheBuilderService {
 
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Autowired
+    Environment env;
 
     @Autowired
     public StaticCacheBuilderServiceImpl(DataSource dataSource) {
@@ -78,6 +85,21 @@ public class StaticCacheBuilderServiceImpl implements StaticCacheBuilderService 
         if (currentTime < highestVersionJWT.creationDate || currentTime >= highestVersionJWT.expirationDate)
         {
             throw new InvalidParameterException("Error: Highest JWT version was not inside the time range between creation date and expiration date. This is the JWT version that is used to create new seeds, so this may not be expired! Please create a new JWT and associated version for the app");
+        }
+        JWTSecretKeyCache.setMostRecentJWTVersionNumber(highestVersion[0]);
+
+        for (Integer versionNum : jwtVersionData.keySet())
+        {
+            String base64SecretKey = env.getProperty(Constants.JWT_VERSION_PROPERTY_PREFIX + String.valueOf(versionNum));
+            if (base64SecretKey == null || base64SecretKey.isBlank())
+            {
+                throw new InvalidParameterException("Error: JWT secret key for version " + versionNum + " was not found.");
+            }
+
+            byte[] secretKeyBytes = Base64.getDecoder().decode(base64SecretKey.getBytes(StandardCharsets.UTF_8));
+            if (secretKeyBytes.length != Constants.JWT_SECRET_KEY_LENGTH_IN_BYTES)
+                throw new InvalidParameterException("Error: Secret key did not have the required length!");
+            JWTSecretKeyCache.addToCache(versionNum, secretKeyBytes);
         }
     }
 

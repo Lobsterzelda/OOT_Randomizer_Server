@@ -13,6 +13,7 @@ public final class Constants {
     public static final String JWT_VERSION_NUMBER_FIELD_NAME = "JWTVersionNumber";
 
     public static final Integer PUBLIC_TRACKER_ID_SIZE = 16;
+    public static final Integer JWT_SECRET_KEY_LENGTH_IN_BYTES = 64;
 
     // Names of static tables
     public static final String JWT_VERSION_TABLE_NAME = "jwt_versions";
@@ -55,6 +56,7 @@ public final class Constants {
     public static final String IS_CHILD_ONLY_ENTRANCE_COLUMN_NAME = "isChildOnlyEntrance";
     public static final String IS_ADULT_ONLY_ENTRANCE_COLUMN_NAME = "isAdultOnlyEntrance";
 
+    public static final String JWT_VERSION_PROPERTY_PREFIX = "jwtKeyVersion_";
 
 
 
