@@ -99,7 +99,7 @@ public class StaticCacheBuilderServiceImpl implements StaticCacheBuilderService 
             byte[] secretKeyBytes = Base64.getDecoder().decode(base64SecretKey.getBytes(StandardCharsets.UTF_8));
             if (secretKeyBytes.length != Constants.JWT_SECRET_KEY_LENGTH_IN_BYTES)
                 throw new InvalidParameterException("Error: Secret key did not have the required length!");
-            JWTSecretKeyCache.addToCache(versionNum, secretKeyBytes);
+            JWTSecretKeyCache.addSecretForVersionToCache(versionNum, secretKeyBytes);
         }
     }
 

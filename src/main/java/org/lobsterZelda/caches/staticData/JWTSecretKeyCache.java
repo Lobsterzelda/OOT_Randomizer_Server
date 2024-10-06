@@ -16,9 +16,10 @@ public class JWTSecretKeyCache {
         return jwtVersionToSecretKeyMap.get(jwtVersion);
     }
 
-    public static void addToCache(Integer version, byte[] secret)
+    public static void addSecretForVersionToCache(Integer version, byte[] secret)
     {
-        jwtVersionToSecretKeyMap.put(version, secret); // TODO: Actually set this to the right secret enviroment file.
+        //For debugging purposes, version 1 corresponds to 64 bytes of 0x33 (51 decimal). In base64, this corresponds to Mz repeating
+        jwtVersionToSecretKeyMap.put(version, secret); // TODO: Actually set this to the right secret environment file.
     }
 
     public static int getMostRecentJWTVersionNumber() {
