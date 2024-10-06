@@ -55,6 +55,7 @@ public class EntranceGraph
         output.setIsInHouse(input.getIsInHouse());
         output.setIsOOTToMMEntrance(input.getIsOOTToMMEntrance());
         output.setMapEntranceID(input.getMapEntranceID());
+        output.setMapForDisplayEntranceID(input.getMapForDisplayEntranceID());
         output.setIsMMSaveWarp(input.getIsMMSaveWarp());
         output.setIsOOTOwlEntrance(input.getIsOOTOwlEntrance());
         output.setIsMMSongOfSoaringWarp(input.getIsMMSongOfSoaringWarp());

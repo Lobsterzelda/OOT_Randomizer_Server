@@ -37,6 +37,7 @@ public final class Constants {
     // Static entrance table column names
     public static final String ENTRANCE_ID_COLUMN_NAME = "entranceId";
     public static final String MAP_ENTRANCE_ID_COLUMN_NAME = "mapEntranceId";
+    public static final String MAP_FOR_DISPLAY_ENTRANCE_ID_COLUMN_NAME = "mapForDisplayEntranceId";
     public static final String ENTRANCE_NAME_COLUMN_NAME = "entranceName";
     public static final String IS_OOT_OWL_ENTRANCE_COLUMN_NAME = "isOOTOwlEntrance";
     public static final String IS_OOT_WARP_SONG_COLUMN_NAME = "isOOTWarpSong";

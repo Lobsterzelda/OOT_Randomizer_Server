@@ -173,6 +173,7 @@ public class StaticCacheBuilderServiceImpl implements StaticCacheBuilderService 
 
                 nextEntrance.setEntranceID(resultSet.getInt(Constants.ENTRANCE_ID_COLUMN_NAME));
                 nextEntrance.setMapEntranceID(resultSet.getInt(Constants.MAP_ENTRANCE_ID_COLUMN_NAME));
+                nextEntrance.setMapForDisplayEntranceID(resultSet.getInt(Constants.MAP_FOR_DISPLAY_ENTRANCE_ID_COLUMN_NAME));
                 nextEntrance.setEntranceName(resultSet.getString(Constants.ENTRANCE_NAME_COLUMN_NAME));
                 nextEntrance.setIsOOTOwlEntrance(resultSet.getBoolean(Constants.IS_OOT_OWL_ENTRANCE_COLUMN_NAME));
                 nextEntrance.setIsOOTWarpSong(resultSet.getBoolean(Constants.IS_OOT_WARP_SONG_COLUMN_NAME));
