@@ -11,6 +11,15 @@ public class EntranceGraph
     private final Map<String, Entrance> nameToEntranceMap = new HashMap<>();
     private final Map<Integer, List<WeightedVertex>> idToConnectedEntrancesAdjacencyList = new HashMap<>();
 
+    // A map where the keys are dungeon map IDs, and the associated value is true if the location is an MQ dungeon,
+    // and false if the location is a vanilla dungeon. If an OOT dungeon isn't specified in this map, that means that it's unknown whether it's MQ
+    private final Map<Integer, Boolean> isDungeonMQMap = new HashMap<>();
+
+    // A map where the keys are IDs for entrances representing warp songs (either an OOT warp song or an MM song-of-soaring owl warp location).
+    // The associated value is true if the user can play the song, and false otherwise.
+    // If the key for a warp song isn't in this graph, that means that it's unknown if the user can play this song.
+    private final Map<Integer, Boolean> canPlaySongMap = new HashMap<>();
+
     public Map<Integer, Entrance> getIdToEntranceMap() {
         return idToEntranceMap;
     }
@@ -22,6 +31,15 @@ public class EntranceGraph
     public Map<Integer, List<WeightedVertex>> getIdToConnectedEntrancesAdjacencyList() {
         return idToConnectedEntrancesAdjacencyList;
     }
+
+    public Map<Integer, Boolean> getIsDungeonMQMap() {
+        return isDungeonMQMap;
+    }
+
+    public Map<Integer, Boolean> getCanPlaySongMap() {
+        return canPlaySongMap;
+    }
+
 
     public EntranceGraph deepCopy() {
         EntranceGraph returnGraph = new EntranceGraph();
