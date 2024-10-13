@@ -7,31 +7,53 @@ import java.util.Set;
 
 public class ItemGraph {
 
-    // A map whose keys are the unique ID for an item, and whose associated value is the human-readable name for the item. For example, a key-value pair in this map could be {5:"Hookshot"}
-    private final Map<Integer, String> itemIdentifierToNameMap = new HashMap<>();
+    // The keys of this map are the IDs for items, and the values are the associated Item object.
+    private final Map<Integer, Item> uniqueItemIdentifierToItemMap = new HashMap<>();
 
-    // A map whose keys are the unique ID for an item-check location, and whose associated value is the human-readable name for the item. For example, a key-value pair in this map could be {8:"Dampe_Hookshot_Chest"}
-    private Map<Integer, String> itemCheckIdentifierToNameMap = new HashMap<>();
+    // The keys of this map are the name for items, and the values are the associated Item object.
+    private final Map<String, Item> itemNameToItemMap = new HashMap<>();
 
-    // A map whose keys are the unique ID for an item check location, and whose associated value is the unique ID for the item located at that location. For example, using the values given in the 2 examples above, if the Hookshot was located in  the vanilla location (in the Dampe chest), then there would be a key-value pair in the map of: {8: 5}
-    private Map<Integer, Integer> seedItemCheckToItemMap = new HashMap<>();
+    // The keys of this map are the ID for itemCheckLocations, and the values are the associated itemCheckLocations
+    private final Map<Integer, ItemCheckLocation> uniqueItemCheckLocationIdentifierToItemCheckLocationMap = new HashMap<>();
 
-    // A set whose values are the unique IDs for items that the user has acquired. If an item isn't in this set, it means that the user hasn't marked off that they have that item.
-    private Set<Integer> itemsAcquiredMap = new HashSet<>();
+    // The keys of this map are the name for itemCheckLocations, and the values are the associated itemCheckLocations
+    private final Map<String, ItemCheckLocation> itemCheckLocationNameToItemCheckLocationMap = new HashMap<>();
 
-    public Map<Integer, String> getItemIdentifierToNameMap() {
-        return itemIdentifierToNameMap;
+    // The keys of this map are item IDs, and the values are the IDs of the itemCheckLocation where that item is located.
+    private final Map<Integer, Integer> itemIdToItemCheckLocationMap = new HashMap<>();
+
+    // The keys of this map are itemCheckLocation IDs, and the values are the item IDs of the item located at that location. These 2 maps have a relation such that if itemIdToItemCheckLocationMap contains {5 : 3}, then itemCheckLocationToItemIdMap must contain {3 : 5}
+    private final Map<Integer, Integer> itemCheckLocationToItemIdMap = new HashMap<>();
+
+    // Stores the IDs of the items that the user has acquired (the above 2 maps store where the item is located, while this map records the IDs of items that the user has actually collected).
+    // When a user collects an item, its ID is added to this set. If an item's ID isn't in this set, then that means the user doesn't have the item yet.
+    private final Set<Integer> itemsAcquired = new HashSet<>();
+
+    public Map<Integer, Item> getUniqueItemIdentifierToItemMap() {
+        return uniqueItemIdentifierToItemMap;
     }
 
-    public Map<Integer, String> getItemCheckIdentifierToNameMap() {
-        return itemCheckIdentifierToNameMap;
+    public Map<String, Item> getItemNameToItemMap() {
+        return itemNameToItemMap;
     }
 
-    public Map<Integer, Integer> getSeedItemCheckToItemMap() {
-        return seedItemCheckToItemMap;
+    public Map<Integer, ItemCheckLocation> getUniqueItemCheckLocationIdentifierToItemCheckLocationMap() {
+        return uniqueItemCheckLocationIdentifierToItemCheckLocationMap;
     }
 
-    public Set<Integer> getItemsAcquiredMap() {
-        return itemsAcquiredMap;
+    public Map<String, ItemCheckLocation> getItemCheckLocationNameToItemCheckLocationMap() {
+        return itemCheckLocationNameToItemCheckLocationMap;
+    }
+
+    public Map<Integer, Integer> getItemIdToItemCheckLocationMap() {
+        return itemIdToItemCheckLocationMap;
+    }
+
+    public Map<Integer, Integer> getItemCheckLocationToItemIdMap() {
+        return itemCheckLocationToItemIdMap;
+    }
+
+    public Set<Integer> getItemsAcquired() {
+        return itemsAcquired;
     }
 }

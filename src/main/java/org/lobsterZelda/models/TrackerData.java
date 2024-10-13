@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+// This stores all data about a User's seed. This is loaded from the database into the TrackerCache whenever a user queries for information about that seed
+// (and an associated TrackerData object is put into the TrackerCache when the user first creates a new seed, as well).
 public class TrackerData
 {
     // The settings that the user selected when creating the rando.

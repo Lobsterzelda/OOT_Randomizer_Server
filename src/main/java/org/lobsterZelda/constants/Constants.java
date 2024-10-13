@@ -1,5 +1,6 @@
 package org.lobsterZelda.constants;
 
+// NOTE: The format for table names is that they start with s_ for static tables and d_ for dynamic tables.
 public final class Constants {
 
     private Constants(){}
@@ -16,25 +17,25 @@ public final class Constants {
     public static final Integer JWT_SECRET_KEY_LENGTH_IN_BYTES = 64;
 
     // Names of static tables
-    public static final String JWT_VERSION_TABLE_NAME = "jwt_versions";
-    public static final String STATIC_ENTRANCE_DATA_TABLE_NAME = "static_entrance_data";
-    public static final String STATIC_ITEM_DATA_TABLE_NAME = "static_item_data";
-    public static final String STATIC_ITEM_CHECK_DATA_TABLE_NAME = "static_item_check_data";
+    public static final String JWT_VERSION_TABLE_NAME = "s_jwt_versions"; // Stores the JWT version numbers, and the date they were created and/or stopped being used.
+    public static final String STATIC_ENTRANCE_DATA_TABLE_NAME = "s_entrances"; // Stores the list of entrances in the games, and their properties.
+    public static final String STATIC_ITEM_DATA_TABLE_NAME = "s_item_data"; // Stores the list of items in the games, and their properties.
+    public static final String STATIC_ITEM_CHECK_LOCATION_DATA_TABLE_NAME = "s_item_check_locations"; // Stores the list of itemCheckLocations in the games, and their properties.
 
     // Names of dynamic tables that store the contents of individual trackers
-    public static final String TRACKER_SETTINGS_TABLE_NAME = "tracker_seed_settings"; // This contains seed data that should never change - except for the isAdult field, which can be changed for a given Tracker.
-    public static final String TRACKER_LOCATIONS_TABLE_NAME = "tracker_locations";
-    public static final String TRACKER_ITEM_TABLE_NAME = "tracker_items";
-    public static final String TRACKER_REMINDERS_TABLE_NAME = "tracker_reminders";
-    public static final String TRACKER_MQ_DUNGEONS_TABLE_NAME = "tracker_mq_dungeons";
+    public static final String TRACKER_SETTINGS_TABLE_NAME = "d_tracker_seed_settings"; // This contains seed data that should never change after a seed is created.
+    public static final String TRACKER_LOCATIONS_TABLE_NAME = "d_tracker_locations"; // This contains the mappings for where each entrance in a seed leads
+    public static final String TRACKER_ITEM_TABLE_NAME = "d_tracker_items"; // This contains the mappings for itemID to itemCheckLocationID, and includes a Boolean that tracks if the user has collected the associated item yet. If no entry is present for an item in a seed, that is interpretted as the user hasn't collected the item, and doesn't know where it is.
+    // Additionally, if the user has an item but hasn't marked where they got it from, then the associated itemCheckLocation would be -1
+    public static final String TRACKER_REMINDERS_TABLE_NAME = "d_tracker_reminders"; // Stores the reminders associated with a seed.
+    public static final String TRACKER_MQ_DUNGEONS_TABLE_NAME = "d_tracker_mq_dungeons"; // Stores the Booleans for whether or not a dungeon is MQ. Only applicable for OOT dungeons. Also, only used on seeds where MQ dungeons are included. If an OOT dungeon main entrance isn't present in this table for a seed that could include MQ dungeons, that means it's unknown what type of dungeon it is.
 
-    // Static jwt_versions table column names
-    public static final String JWT_VERSION_ID_COLUMN_NAME = "id";
-    public static final String JWT_VERSION_CREATION_DATE_COLUMN_NAME = "version_creation_date";
-    public static final String JWT_VERSION_EXPIRATION_DATE_COLUMN_NAME = "version_expiration_date";
+    // STATIC_JWT_VERSION_TABLE column names
+    public static final String JWT_VERSION_ID_COLUMN_NAME = "jwt_id";
+    public static final String JWT_VERSION_CREATION_DATE_COLUMN_NAME = "jwt_version_creation_date";
+    public static final String JWT_VERSION_EXPIRATION_DATE_COLUMN_NAME = "jwt_version_expiration_date";
 
-
-    // Static entrance table column names
+    // STATIC_ENTRANCE_DATA_TABLE column names:
     public static final String ENTRANCE_ID_COLUMN_NAME = "entranceId";
     public static final String MAP_ENTRANCE_ID_COLUMN_NAME = "mapEntranceId";
     public static final String MAP_FOR_DISPLAY_ENTRANCE_ID_COLUMN_NAME = "mapForDisplayEntranceId";
@@ -57,8 +58,20 @@ public final class Constants {
     public static final String IS_CHILD_ONLY_ENTRANCE_COLUMN_NAME = "isChildOnlyEntrance";
     public static final String IS_ADULT_ONLY_ENTRANCE_COLUMN_NAME = "isAdultOnlyEntrance";
 
+    // STATIC_ITEM_DATA_TABLE column names:
+    public static final String ITEM_ID_COLUMN_NAME = "id";
+    public static final String MAP_ID_FOR_ITEM_COLUMN_NAME = "mapId";
+    public static final String ITEM_NAME_COLUMN_NAME = "name";
+    public static final String ITEM_DESCRIPTION_COLUMN_NAME = "description";
+    public static final String IS_OOT_ITEM_COLUMN_NAME = "isOOTItem";
+
+    // STATIC_ITEM_CHECK_LOCATION_DATA_TABLE column names:
+    public static final String ITEM_CHECK_LOCATION_ID_COLUMN_NAME = "id";
+    public static final String MAP_ID_FOR_ITEM_CHECK_LOCATION_COLUMN_NAME = "mapId";
+    public static final String ITEM_CHECK_LOCATION_NAME_COLUMN_NAME = "name";
+    public static final String ITEM_CHECK_LOCATION_DESCRIPTION_COLUMN_NAME = "description";
+    public static final String IS_OOT_ITEM_CHECK_LOCATION_COLUMN_NAME = "isOOtItem";
+
     public static final String JWT_VERSION_PROPERTY_PREFIX = "jwtKeyVersion_";
-
-
 
 }
