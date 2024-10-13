@@ -57,6 +57,12 @@ public final class Constants {
     public static final String IS_OOT_TO_MM_ENTRANCE_COLUMN_NAME = "isOOTToMMEntrance";
     public static final String IS_CHILD_ONLY_ENTRANCE_COLUMN_NAME = "isChildOnlyEntrance";
     public static final String IS_ADULT_ONLY_ENTRANCE_COLUMN_NAME = "isAdultOnlyEntrance";
+    public static final String MAP_PERCENT_FROM_LEFT_COLUMN_NAME = "mapPercentFromLeftEdge";
+    public static final String MAP_PERCENT_FROM_TOP_COLUMN_NAME = "mapPercentFromTopEdge";
+    public static final String MAP_PERCENT_FROM_RIGHT_COLUMN_NAME = "mapPercentFromRightEdge";
+    public static final String MAP_PERCENT_FROM_BOTTOM_COLUMN_NAME = "mapPercentFromBottomEdge";
+    public static final String PERCENT_FROM_LEFT_EDGE_OF_MAP_COLUMN_NAME = "percentFromLeftEdgeOfMap";
+    public static final String PERCENT_FROM_TOP_EDGE_OF_MAP_COLUMN_NAME = "percentFromTopEdgeOfMap";
 
     // STATIC_ITEM_DATA_TABLE column names:
     public static final String ITEM_ID_COLUMN_NAME = "id";

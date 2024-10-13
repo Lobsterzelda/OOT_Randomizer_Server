@@ -30,6 +30,23 @@ public class Entrance
     private boolean isChildOnlyEntrance; // True if only child can access the entrance, and false otherwise.
     private boolean isAdultOnlyEntrance; // True if only adult can access the entrance, and false otherwise.
 
+    // Map entries contain 4 percentages that represent how far from the edge of the map image the in-bounds portion of the bottom of the map, the left edge of the map, the top edge of the map, and the right edge of the map begin.
+    // An entrance's location is formed by combining its percentFromLeftEdgeOfMap and percentFromTopEdgeOfMap with the map boundaries.
+
+    // For example, suppose an entrance is in a map, whose mapPercentageFromLeft = 10, mapPercentFromTop = 5, mapPercentFromRight = 8, and mapPercentFromBottom = 20.
+    // Assume that the entrance has a percentFromLeftEdgeOfMap = 43, and a percentFromTopEdgeOfMap = 12.
+
+    // Then, the x-coordinate of the entrance would be equal to ((0.92 - 0.10) * 0.43) + 0.10 = 0.4526 = 45.26% from the left-edge of the map-image jpg.
+    // And, the y-coordinate of the entrance would be equal to ((0.80 - 0.05) * 0.12) + 0.05 = 0.14 = 14.00% from the top-edge of the map-image jpg.
+
+    private float mapPercentFromLeftToInBounds; // The percentage of the distance between the left-most and right-most part of the image where the left-most part of the map's in-bounds portion starts. Set to -1 for regular (non-map) entrances.
+    private float mapPercentFromTopToInBounds; // The percentage of the distance between the top-most and bottom-most part of the image where the top-most part of the map's in-bounds portion starts. Set to -1 for regular (non-map) entrances.
+    private float mapPercentFromRightToInBounds; // The percentage of the distance between the right-most and left-most part of the image where the right-most part of the map's in-bounds portion starts. Set to -1 for regular (non-map) entrances.
+    private float mapPercentFromDownToInBound; // The percentage of the distance between the bottom-most and top-most part of the image where the bottom-most part of the map's in-bounds portion starts. Set to -1 for regular (non-map) entrances.
+
+    private float percentFromLeftEdgeOfMap; // The percentage of the distance between the left and right edge of the map that the entrance is located at (after adding in the map offsets). This is -1 for maps.
+    private float percentFromTopEdgeOfMap; // The percentage of the distance between the top and bottom edge of the map that the entrance is located at (after adding in the map offsets). This is -1 for maps.
+
     public int getEntranceID() {
         return entranceID;
     }
@@ -196,5 +213,53 @@ public class Entrance
 
     public void setIsAdultOnlyEntrance(boolean adultOnlyEntrance) {
         isAdultOnlyEntrance = adultOnlyEntrance;
+    }
+
+    public float getMapPercentFromLeftToInBounds() {
+        return mapPercentFromLeftToInBounds;
+    }
+
+    public void setMapPercentFromLeftToInBounds(float mapPercentFromLeftToInBounds) {
+        this.mapPercentFromLeftToInBounds = mapPercentFromLeftToInBounds;
+    }
+
+    public float getMapPercentFromTopToInBounds() {
+        return mapPercentFromTopToInBounds;
+    }
+
+    public void setMapPercentFromTopToInBounds(float mapPercentFromTopToInBounds) {
+        this.mapPercentFromTopToInBounds = mapPercentFromTopToInBounds;
+    }
+
+    public float getMapPercentFromRightToInBounds() {
+        return mapPercentFromRightToInBounds;
+    }
+
+    public void setMapPercentFromRightToInBounds(float mapPercentFromRightToInBounds) {
+        this.mapPercentFromRightToInBounds = mapPercentFromRightToInBounds;
+    }
+
+    public float getMapPercentFromDownToInBound() {
+        return mapPercentFromDownToInBound;
+    }
+
+    public void setMapPercentFromDownToInBound(float mapPercentFromDownToInBound) {
+        this.mapPercentFromDownToInBound = mapPercentFromDownToInBound;
+    }
+
+    public float getPercentFromLeftEdgeOfMap() {
+        return percentFromLeftEdgeOfMap;
+    }
+
+    public void setPercentFromLeftEdgeOfMap(float percentFromLeftEdgeOfMap) {
+        this.percentFromLeftEdgeOfMap = percentFromLeftEdgeOfMap;
+    }
+
+    public float getPercentFromTopEdgeOfMap() {
+        return percentFromTopEdgeOfMap;
+    }
+
+    public void setPercentFromTopEdgeOfMap(float percentFromTopEdgeOfMap) {
+        this.percentFromTopEdgeOfMap = percentFromTopEdgeOfMap;
     }
 }

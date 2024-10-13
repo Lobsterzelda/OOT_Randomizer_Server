@@ -82,6 +82,12 @@ public class EntranceGraph
         output.setIsOOTWarpSong(input.getIsOOTWarpSong());
         output.setIsVoidPointWarp(input.getIsVoidPointWarp());
         output.setIsWallmasterWarp(input.getIsWallmasterWarp());
+        output.setMapPercentFromLeftToInBounds(input.getMapPercentFromLeftToInBounds());
+        output.setMapPercentFromTopToInBounds(input.getMapPercentFromTopToInBounds());
+        output.setMapPercentFromRightToInBounds(input.getMapPercentFromRightToInBounds());
+        output.setMapPercentFromDownToInBound(input.getMapPercentFromDownToInBound());
+        output.setPercentFromLeftEdgeOfMap(input.getPercentFromLeftEdgeOfMap());
+        output.setPercentFromTopEdgeOfMap(input.getPercentFromTopEdgeOfMap());
         return output;
     }
 
