@@ -198,6 +198,7 @@ public class StaticCacheBuilderServiceImpl implements StaticCacheBuilderService 
                 nextEntrance.setMapPercentFromDownToInBound(resultSet.getFloat(Constants.MAP_PERCENT_FROM_BOTTOM_COLUMN_NAME));
                 nextEntrance.setPercentFromLeftEdgeOfMap(resultSet.getFloat(Constants.PERCENT_FROM_LEFT_EDGE_OF_MAP_COLUMN_NAME));
                 nextEntrance.setPercentFromTopEdgeOfMap(resultSet.getFloat(Constants.PERCENT_FROM_TOP_EDGE_OF_MAP_COLUMN_NAME));
+                nextEntrance.setPathToMapImage(resultSet.getString(Constants.PATH_TO_MAP_IMAGE_COLUMN_NAME));
 
                 if (nextEntrance.getIsAMap())
                     idOfMapToEntranceObject.put(nextEntrance.getEntranceID(), nextEntrance);

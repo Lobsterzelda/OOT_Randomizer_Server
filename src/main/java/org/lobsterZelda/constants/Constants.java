@@ -63,6 +63,7 @@ public final class Constants {
     public static final String MAP_PERCENT_FROM_BOTTOM_COLUMN_NAME = "mapPercentFromBottomEdge";
     public static final String PERCENT_FROM_LEFT_EDGE_OF_MAP_COLUMN_NAME = "percentFromLeftEdgeOfMap";
     public static final String PERCENT_FROM_TOP_EDGE_OF_MAP_COLUMN_NAME = "percentFromTopEdgeOfMap";
+    public static final String PATH_TO_MAP_IMAGE_COLUMN_NAME = "pathToMapImage";
 
     // STATIC_ITEM_DATA_TABLE column names:
     public static final String ITEM_ID_COLUMN_NAME = "id";

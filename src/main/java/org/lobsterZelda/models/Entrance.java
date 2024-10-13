@@ -47,6 +47,8 @@ public class Entrance
     private float percentFromLeftEdgeOfMap; // The percentage of the distance between the left and right edge of the map that the entrance is located at (after adding in the map offsets). This is -1 for maps.
     private float percentFromTopEdgeOfMap; // The percentage of the distance between the top and bottom edge of the map that the entrance is located at (after adding in the map offsets). This is -1 for maps.
 
+    private String pathToMapImage; // The path to load the image of the map. This is the empty String ("") for non-map entrances.
+
     public int getEntranceID() {
         return entranceID;
     }
@@ -261,5 +263,13 @@ public class Entrance
 
     public void setPercentFromTopEdgeOfMap(float percentFromTopEdgeOfMap) {
         this.percentFromTopEdgeOfMap = percentFromTopEdgeOfMap;
+    }
+
+    public String getPathToMapImage() {
+        return pathToMapImage;
+    }
+
+    public void setPathToMapImage(String pathToMapImage) {
+        this.pathToMapImage = pathToMapImage;
     }
 }

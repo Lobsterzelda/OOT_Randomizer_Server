@@ -88,6 +88,7 @@ public class EntranceGraph
         output.setMapPercentFromDownToInBound(input.getMapPercentFromDownToInBound());
         output.setPercentFromLeftEdgeOfMap(input.getPercentFromLeftEdgeOfMap());
         output.setPercentFromTopEdgeOfMap(input.getPercentFromTopEdgeOfMap());
+        output.setPathToMapImage(input.getPathToMapImage());
         return output;
     }
 
