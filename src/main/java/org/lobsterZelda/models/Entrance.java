@@ -4,11 +4,11 @@ package org.lobsterZelda.models;
 public class Entrance
 {
     private int entranceID; // The ID for a location/map (ex. 1). 0 is the first map/area. Negative values represent special entrances, like warp songs and owl warps.
+    private String entranceName; // The printable name for a location/map (ex. "Spirit Temple main entrance to Desert Colossus").
     private int mapEntranceID; // The ID of the map containing the entrance. If the entrance is a map, then this value is set to -1. Maps containing only 1 entrance (like certain houses and grottos) also have a value of -1 for this. Also, special entrances that don't exist inside of a map like childSaveWarp have a value of -1 for mapEntranceID as well.
     private int mapForDisplayEntranceID; // The ID of the map that the entrance is displayed on. For entrances that only appear in text form (like generic grottos), this is -1. This is the ID of the map that the entrance is displayed on - which is different from the map ID (the map ID is the actual map that the scene is located in).
     // Example: Kakariko Archery shop would have a mapEntranceID of -1, since it's an entrance in a scene with only one entrance. However, it would have a mapForDisplayEntranceId of Kakariko Village, since the archery shop is displayed in the Kakriko Village map.
 
-    private String entranceName; // The printable name for a location/map (ex. "Spirit Temple main entrance to Desert Colossus").
 
     private boolean isOOTOwlEntrance; // True if this is a Kappora Gaebora flight in OOT (either the  owl at Lake Hylia or the top of DMT), and false otherwise.
     private boolean isOOTWarpSong; // True if this is an OOT warp song (like Bolero of Fire), and false otherwise.
@@ -57,6 +57,14 @@ public class Entrance
         this.entranceID = entranceID;
     }
 
+    public String getEntranceName() {
+        return entranceName;
+    }
+
+    public void setEntranceName(String entranceName) {
+        this.entranceName = entranceName;
+    }
+
     public int getMapEntranceID() {
         return mapEntranceID;
     }
@@ -71,14 +79,6 @@ public class Entrance
 
     public void setMapForDisplayEntranceID(int mapForDisplayEntranceID) {
         this.mapForDisplayEntranceID = mapForDisplayEntranceID;
-    }
-
-    public String getEntranceName() {
-        return entranceName;
-    }
-
-    public void setEntranceName(String entranceName) {
-        this.entranceName = entranceName;
     }
 
     public boolean getIsOOTOwlEntrance() {

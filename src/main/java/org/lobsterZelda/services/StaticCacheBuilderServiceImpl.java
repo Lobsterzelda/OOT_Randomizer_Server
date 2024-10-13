@@ -10,15 +10,12 @@ import org.lobsterZelda.models.WeightedVertex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidParameterException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -46,7 +43,7 @@ public class StaticCacheBuilderServiceImpl implements StaticCacheBuilderService 
         populateEntrancesCache();
     }
 
-    private static final String JWT_VERSION_QUERY = "SELECT * FROM " + Constants.JWT_VERSION_TABLE_NAME;
+    private static final String JWT_VERSION_QUERY = "SELECT * FROM " + Constants.STATIC_JWT_VERSION_TABLE_NAME;
 
     // temp class only used within the method which populates the JWTSecretKeyCache
     private static class TempJwtVersionData
@@ -64,11 +61,11 @@ public class StaticCacheBuilderServiceImpl implements StaticCacheBuilderService 
             while (resultSet.next())
             {
                 TempJwtVersionData newVersionObj = new TempJwtVersionData();
-                newVersionObj.versionID = resultSet.getInt(Constants.JWT_VERSION_ID_COLUMN_NAME);
+                newVersionObj.versionID = resultSet.getInt(Constants.STATIC_JWT_VERSION_ID_COLUMN_NAME);
                 if (newVersionObj.versionID > highestVersion[0])
                     highestVersion[0] = newVersionObj.versionID;
-                newVersionObj.creationDate = resultSet.getDate(Constants.JWT_VERSION_CREATION_DATE_COLUMN_NAME).getTime() / 1000L;
-                newVersionObj.expirationDate = resultSet.getDate(Constants.JWT_VERSION_EXPIRATION_DATE_COLUMN_NAME).getTime() / 1000L;
+                newVersionObj.creationDate = resultSet.getDate(Constants.STATIC_JWT_VERSION_CREATION_DATE_COLUMN_NAME).getTime() / 1000L;
+                newVersionObj.expirationDate = resultSet.getDate(Constants.STATIC_JWT_VERSION_EXPIRATION_DATE_COLUMN_NAME).getTime() / 1000L;
                 jwtVersionData.put(newVersionObj.versionID, newVersionObj);
             }
             return null;
@@ -123,7 +120,7 @@ public class StaticCacheBuilderServiceImpl implements StaticCacheBuilderService 
 
     private void initializeGraph(EntranceGraph entranceGraph, boolean includesOOT, boolean includesMM, boolean wallmastersRandomized, boolean voidPointsRandomized)
     {
-        final StringBuilder query = new StringBuilder("SELECT * FROM ").append(Constants.STATIC_ENTRANCE_DATA_TABLE_NAME).append(" ");
+        final StringBuilder query = new StringBuilder("SELECT * FROM ").append(Constants.STATIC_ENTRANCES_TABLE_NAME).append(" ");
         boolean addedWhereClause = false;
 
         // We only need to add filtering when either OOT locations should be excluded or MM locations should be excluded.
@@ -172,9 +169,9 @@ public class StaticCacheBuilderServiceImpl implements StaticCacheBuilderService 
                 Entrance nextEntrance = new Entrance();
 
                 nextEntrance.setEntranceID(resultSet.getInt(Constants.ENTRANCE_ID_COLUMN_NAME));
+                nextEntrance.setEntranceName(resultSet.getString(Constants.ENTRANCE_NAME_COLUMN_NAME));
                 nextEntrance.setMapEntranceID(resultSet.getInt(Constants.MAP_ENTRANCE_ID_COLUMN_NAME));
                 nextEntrance.setMapForDisplayEntranceID(resultSet.getInt(Constants.MAP_FOR_DISPLAY_ENTRANCE_ID_COLUMN_NAME));
-                nextEntrance.setEntranceName(resultSet.getString(Constants.ENTRANCE_NAME_COLUMN_NAME));
                 nextEntrance.setIsOOTOwlEntrance(resultSet.getBoolean(Constants.IS_OOT_OWL_ENTRANCE_COLUMN_NAME));
                 nextEntrance.setIsOOTWarpSong(resultSet.getBoolean(Constants.IS_OOT_WARP_SONG_COLUMN_NAME));
                 nextEntrance.setIsOOTChildSaveWarp(resultSet.getBoolean(Constants.IS_OOT_CHILD_SAVE_WARP_COLUMN_NAME));
@@ -184,7 +181,7 @@ public class StaticCacheBuilderServiceImpl implements StaticCacheBuilderService 
                 nextEntrance.setIsWallmasterWarp(resultSet.getBoolean(Constants.IS_WALLMASTER_WARP_COLUMN_NAME));
                 nextEntrance.setIsVoidPointWarp(resultSet.getBoolean(Constants.IS_VOID_POINT_WARP_COLUMN_NAME));
                 nextEntrance.setIsOOTEntrance(resultSet.getBoolean(Constants.IS_OOT_ENTRANCE_COLUMN_NAME));
-                nextEntrance.setIsInDungeon(resultSet.getBoolean(Constants.IS_IN_DUNGEON_COLUMNN_NAME));
+                nextEntrance.setIsInDungeon(resultSet.getBoolean(Constants.IS_IN_DUNGEON_COLUMN_NAME));
                 nextEntrance.setIsBossRoom(resultSet.getBoolean(Constants.IS_BOSS_ROOM_COLUMN_NAME));
                 nextEntrance.setIsInGrotto(resultSet.getBoolean(Constants.IS_IN_GROTTO_COLUMN_NAME));
                 nextEntrance.setIsInHouse(resultSet.getBoolean(Constants.IS_IN_HOUSE_COLUMN_NAME));
