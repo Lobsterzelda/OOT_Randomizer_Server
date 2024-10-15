@@ -17,7 +17,7 @@ public final class Constants {
     public static final Integer JWT_SECRET_KEY_LENGTH_IN_BYTES = 64;
 
     // Names of static tables
-    public static final String STATIC_JWT_VERSION_TABLE_NAME = "s_jwt_versions"; // Stores the JWT version numbers, and the date they were created and/or stopped being used.
+    public static final String STATIC_JWT_VERSIONS_TABLE_NAME = "s_jwt_versions"; // Stores the JWT version numbers, and the date they were created and/or stopped being used.
     public static final String STATIC_ENTRANCES_TABLE_NAME = "s_entrances"; // Stores the list of entrances in the games, and their properties.
     public static final String STATIC_ITEMS_TABLE_NAME = "s_item_data"; // Stores the list of items in the games, and their properties.
     public static final String STATIC_ITEM_CHECK_LOCATIONS_TABLE_NAME = "s_item_check_locations"; // Stores the list of itemCheckLocations in the games, and their properties.
@@ -60,8 +60,8 @@ public final class Constants {
     public static final String MAP_PERCENT_FROM_TOP_COLUMN_NAME = "mapPercentFromTopEdge";
     public static final String MAP_PERCENT_FROM_RIGHT_COLUMN_NAME = "mapPercentFromRightEdge";
     public static final String MAP_PERCENT_FROM_BOTTOM_COLUMN_NAME = "mapPercentFromBottomEdge";
-    public static final String PERCENT_FROM_LEFT_EDGE_OF_MAP_COLUMN_NAME = "percentFromLeftEdgeOfMap";
-    public static final String PERCENT_FROM_TOP_EDGE_OF_MAP_COLUMN_NAME = "percentFromTopEdgeOfMap";
+    public static final String ENTRANCE_PERCENT_FROM_LEFT_EDGE_OF_MAP_COLUMN_NAME = "percentFromLeftEdgeOfMap";
+    public static final String ENTRANCE_PERCENT_FROM_TOP_EDGE_OF_MAP_COLUMN_NAME = "percentFromTopEdgeOfMap";
     public static final String PATH_TO_MAP_IMAGE_COLUMN_NAME = "pathToMapImage";
 
     // STATIC_ITEM_DATA_TABLE column names:
@@ -70,6 +70,8 @@ public final class Constants {
     public static final String ITEM_NAME_COLUMN_NAME = "name";
     public static final String ITEM_DESCRIPTION_COLUMN_NAME = "description";
     public static final String IS_OOT_ITEM_COLUMN_NAME = "isOOTItem";
+    public static final String ITEM_PERCENT_FROM_LEFT_EDGE_OF_MAP_COLUMN_NAME = "percentFromLeftEdgeOfMap";
+    public static final String ITEM_PERCENT_FROM_TOP_EDGE_OF_MAP_COLUMN_NAME = "percentFromTopEdgeOfMap";
 
     // STATIC_ITEM_CHECK_LOCATION_DATA_TABLE column names:
     public static final String ITEM_CHECK_LOCATION_ID_COLUMN_NAME = "id";
@@ -77,6 +79,9 @@ public final class Constants {
     public static final String ITEM_CHECK_LOCATION_NAME_COLUMN_NAME = "name";
     public static final String ITEM_CHECK_LOCATION_DESCRIPTION_COLUMN_NAME = "description";
     public static final String IS_OOT_ITEM_CHECK_LOCATION_COLUMN_NAME = "isOOtItem";
+    public static final String ITEM_CHECK_LOCATION_PERCENT_FROM_LEFT_EDGE_OF_MAP_COLUMN_NAME = "percentFromLeftEdgeOfMap";
+    public static final String ITEM_CHECK_LOCATION_PERCENT_FROM_TOP_EDGE_OF_MAP_COLUMN_NAME = "percentFromTopEdgeOfMap";
+
 
     public static final String JWT_VERSION_PROPERTY_PREFIX = "jwtKeyVersion_";
 

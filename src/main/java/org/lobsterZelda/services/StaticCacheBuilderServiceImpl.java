@@ -43,7 +43,7 @@ public class StaticCacheBuilderServiceImpl implements StaticCacheBuilderService 
         populateEntrancesCache();
     }
 
-    private static final String JWT_VERSION_QUERY = "SELECT * FROM " + Constants.STATIC_JWT_VERSION_TABLE_NAME;
+    private static final String JWT_VERSION_QUERY = "SELECT * FROM " + Constants.STATIC_JWT_VERSIONS_TABLE_NAME;
 
     // temp class only used within the method which populates the JWTSecretKeyCache
     private static class TempJwtVersionData
@@ -193,8 +193,8 @@ public class StaticCacheBuilderServiceImpl implements StaticCacheBuilderService 
                 nextEntrance.setMapPercentFromTopToInBounds(resultSet.getFloat(Constants.MAP_PERCENT_FROM_TOP_COLUMN_NAME));
                 nextEntrance.setMapPercentFromRightToInBounds(resultSet.getFloat(Constants.MAP_PERCENT_FROM_RIGHT_COLUMN_NAME));
                 nextEntrance.setMapPercentFromDownToInBound(resultSet.getFloat(Constants.MAP_PERCENT_FROM_BOTTOM_COLUMN_NAME));
-                nextEntrance.setPercentFromLeftEdgeOfMap(resultSet.getFloat(Constants.PERCENT_FROM_LEFT_EDGE_OF_MAP_COLUMN_NAME));
-                nextEntrance.setPercentFromTopEdgeOfMap(resultSet.getFloat(Constants.PERCENT_FROM_TOP_EDGE_OF_MAP_COLUMN_NAME));
+                nextEntrance.setPercentFromLeftEdgeOfMap(resultSet.getFloat(Constants.ENTRANCE_PERCENT_FROM_LEFT_EDGE_OF_MAP_COLUMN_NAME));
+                nextEntrance.setPercentFromTopEdgeOfMap(resultSet.getFloat(Constants.ENTRANCE_PERCENT_FROM_TOP_EDGE_OF_MAP_COLUMN_NAME));
                 nextEntrance.setPathToMapImage(resultSet.getString(Constants.PATH_TO_MAP_IMAGE_COLUMN_NAME));
 
                 if (nextEntrance.getIsAMap())

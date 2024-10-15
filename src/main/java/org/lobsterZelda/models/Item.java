@@ -7,6 +7,9 @@ public class Item
     private String itemName;
     private String itemDescription;
     private boolean isOOTItem;
+    private float percentFromLeftEdgeOfMap; // The percentage of the distance between the left and right edge of the map that the item is located at (after adding in the map offsets).
+    private float percentFromTopEdgeOfMap; // The percentage of the distance between the top and bottom edge of the map that the item is located at (after adding in the map offsets).
+
 
     public int getItemID() {
         return itemID;
@@ -46,5 +49,21 @@ public class Item
 
     public void setIsOOTItem(boolean OOTItem) {
         isOOTItem = OOTItem;
+    }
+
+    public float getPercentFromLeftEdgeOfMap() {
+        return percentFromLeftEdgeOfMap;
+    }
+
+    public void setPercentFromLeftEdgeOfMap(float percentFromLeftEdgeOfMap) {
+        this.percentFromLeftEdgeOfMap = percentFromLeftEdgeOfMap;
+    }
+
+    public float getPercentFromTopEdgeOfMap() {
+        return percentFromTopEdgeOfMap;
+    }
+
+    public void setPercentFromTopEdgeOfMap(float percentFromTopEdgeOfMap) {
+        this.percentFromTopEdgeOfMap = percentFromTopEdgeOfMap;
     }
 }

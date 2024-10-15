@@ -4,7 +4,8 @@ import com.nimbusds.jose.JOSEException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.lobsterZelda.models.SeedCreationSettings;
-import org.lobsterZelda.repositories.CreateTablesAndReferenceDataRepository;
+import org.lobsterZelda.repositories.AddReferenceDataToTablesRepository;
+import org.lobsterZelda.repositories.CreateTablesRepository;
 import org.lobsterZelda.repositories.TrackerRepository;
 import org.lobsterZelda.utils.JWTTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,10 @@ public class TrackerServiceImpl implements TrackerService {
     private TrackerRepository trackerRepository;
 
     @Autowired
-    private CreateTablesAndReferenceDataRepository createTablesAndReferenceDataRepository;
+    private CreateTablesRepository createTablesRepository;
+
+    @Autowired
+    private AddReferenceDataToTablesRepository addReferenceDataToTablesRepository;
 
     @Override
     public String generateNewTracker(SeedCreationSettings seedCreationSettings, HttpServletResponse httpServletResponse) {
@@ -92,7 +96,8 @@ public class TrackerServiceImpl implements TrackerService {
     @Override
     public void testMethod()
     {
-        createTablesAndReferenceDataRepository.deleteAllTables();
-        createTablesAndReferenceDataRepository.createAndInitializeAllTables();
+        createTablesRepository.deleteAllTables();
+        createTablesRepository.createAllTables();
+        addReferenceDataToTablesRepository.addReferenceDataToAllStaticTables();
     }
 }

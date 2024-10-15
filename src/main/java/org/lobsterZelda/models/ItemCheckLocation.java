@@ -7,6 +7,9 @@ public class ItemCheckLocation
     private String itemCheckLocationName;
     private String itemCheckLocationDescription;
     private boolean isOOTItemCheckLocation;
+    private float percentFromLeftEdgeOfMap; // The percentage of the distance between the left and right edge of the map that the itemCheckLocation is located at (after adding in the map offsets).
+    private float percentFromTopEdgeOfMap; // The percentage of the distance between the top and bottom edge of the map that the itemCheckLocation is located at (after adding in the map offsets).
+
 
     public int getItemCheckLocationId() {
         return itemCheckLocationId;
@@ -46,5 +49,21 @@ public class ItemCheckLocation
 
     public void setIsOOTItemCheckLocation(boolean OOTItemCheckLocation) {
         isOOTItemCheckLocation = OOTItemCheckLocation;
+    }
+
+    public float getPercentFromLeftEdgeOfMap() {
+        return percentFromLeftEdgeOfMap;
+    }
+
+    public void setPercentFromLeftEdgeOfMap(float percentFromLeftEdgeOfMap) {
+        this.percentFromLeftEdgeOfMap = percentFromLeftEdgeOfMap;
+    }
+
+    public float getPercentFromTopEdgeOfMap() {
+        return percentFromTopEdgeOfMap;
+    }
+
+    public void setPercentFromTopEdgeOfMap(float percentFromTopEdgeOfMap) {
+        this.percentFromTopEdgeOfMap = percentFromTopEdgeOfMap;
     }
 }
