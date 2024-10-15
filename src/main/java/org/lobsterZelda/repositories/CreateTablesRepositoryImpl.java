@@ -104,7 +104,7 @@ public class CreateTablesRepositoryImpl implements CreateTablesRepository
 
     private static final String CREATE_STATIC_ENTRANCES_TABLE_QUERY = "CREATE TABLE " + Constants.STATIC_ENTRANCES_TABLE_NAME + " ("
             + Constants.ENTRANCE_ID_COLUMN_NAME + " INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, "
-            + Constants.ENTRANCE_NAME_COLUMN_NAME + " varchar(1024), "
+            + Constants.ENTRANCE_NAME_COLUMN_NAME + " VARCHAR(1024), "
             + Constants.MAP_ENTRANCE_ID_COLUMN_NAME + " INTEGER NOT NULL, "
             + Constants.MAP_FOR_DISPLAY_ENTRANCE_ID_COLUMN_NAME + " INTEGER NOT NULL, "
             + Constants.IS_OOT_OWL_ENTRANCE_COLUMN_NAME + " BOOLEAN, "
@@ -130,13 +130,13 @@ public class CreateTablesRepositoryImpl implements CreateTablesRepository
             + Constants.MAP_PERCENT_FROM_BOTTOM_COLUMN_NAME + " DOUBLE, "
             + Constants.ENTRANCE_PERCENT_FROM_LEFT_EDGE_OF_MAP_COLUMN_NAME + " DOUBLE, "
             + Constants.ENTRANCE_PERCENT_FROM_TOP_EDGE_OF_MAP_COLUMN_NAME + " DOUBLE, "
-            + Constants.PATH_TO_MAP_IMAGE_COLUMN_NAME + " varchar(1024))";
+            + Constants.PATH_TO_MAP_IMAGE_COLUMN_NAME + " VARCHAR(1024))";
 
     private static final String DELETE_STATIC_ENTRANCES_TABLE_QUERY = "DROP TABLE " + Constants.STATIC_ENTRANCES_TABLE_NAME;
 
     private static final String CREATE_STATIC_ITEMS_TABLE_QUERY = "CREATE TABLE " + Constants.STATIC_ITEMS_TABLE_NAME + " ("
             + Constants.ITEM_ID_COLUMN_NAME + " INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, "
-            + Constants.MAP_ID_FOR_ITEM_COLUMN_NAME + " INTEGER FOREIGN KEY REFERENCES " + Constants.STATIC_ENTRANCES_TABLE_NAME + "(" + Constants.ENTRANCE_ID_COLUMN_NAME + "), "
+            + Constants.MAP_ID_FOR_ITEM_COLUMN_NAME + " INTEGER, "
             + Constants.ITEM_NAME_COLUMN_NAME + " VARCHAR(1024), "
             + Constants.ITEM_DESCRIPTION_COLUMN_NAME + " VARCHAR(2048), "
             + Constants.IS_OOT_ITEM_COLUMN_NAME + " BOOLEAN, "
@@ -145,9 +145,9 @@ public class CreateTablesRepositoryImpl implements CreateTablesRepository
 
     private static final String DELETE_STATIC_ITEMS_TABLE_QUERY = "DROP TABLE " + Constants.STATIC_ITEMS_TABLE_NAME;
 
-    private static final String CREATE_STATIC_ITEM_CHECK_LOCATIONS_TABLE_QUERY = "CREATE TABLE " + Constants.STATIC_ITEM_CHECK_LOCATIONS_TABLE_NAME + "("
+    private static final String CREATE_STATIC_ITEM_CHECK_LOCATIONS_TABLE_QUERY = "CREATE TABLE " + Constants.STATIC_ITEM_CHECK_LOCATIONS_TABLE_NAME + " ("
             + Constants.ITEM_CHECK_LOCATION_ID_COLUMN_NAME + " INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, "
-            + Constants.MAP_ID_FOR_ITEM_CHECK_LOCATION_COLUMN_NAME + " INTEGER FOREIGN KEY REFERENCES " + Constants.STATIC_ENTRANCES_TABLE_NAME + "(" + Constants.ENTRANCE_ID_COLUMN_NAME + "), "
+            + Constants.MAP_ID_FOR_ITEM_CHECK_LOCATION_COLUMN_NAME + " INTEGER, "
             + Constants.ITEM_CHECK_LOCATION_NAME_COLUMN_NAME + " VARCHAR(1024), "
             + Constants.ITEM_CHECK_LOCATION_DESCRIPTION_COLUMN_NAME + " VARCHAR(1024), "
             + Constants.IS_OOT_ITEM_CHECK_LOCATION_COLUMN_NAME + " BOOLEAN, "

@@ -3,11 +3,13 @@ package org.lobsterZelda.repositories;
 import org.lobsterZelda.constants.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
+@Repository
 public class AddReferenceDataToTablesRepositoryImpl implements AddReferenceDataToTablesRepository
 {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
