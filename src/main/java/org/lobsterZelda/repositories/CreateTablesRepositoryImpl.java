@@ -15,7 +15,6 @@ import java.util.Map;
 @Repository
 public class CreateTablesRepositoryImpl implements CreateTablesRepository
 {
-
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
@@ -32,6 +31,9 @@ public class CreateTablesRepositoryImpl implements CreateTablesRepository
         createStaticItemCheckLocationsTable();
         createDynamicTrackerSeedSettingsTable();
         createDynamicTrackerLocationsTable();
+        createDynamicTrackerItemsTable();
+        createDynamicRemindersTable();
+        createDynamicTrackerMQDungeonsTable();
     }
 
     @Override
@@ -43,6 +45,9 @@ public class CreateTablesRepositoryImpl implements CreateTablesRepository
         deleteStaticItemLocationsTable();
         deleteDynamicTrackerSeedSettingsTable();
         deleteDynamicTrackerLocationsTable();
+        deleteDynamicTrackerItemsTable();
+        deleteDynamicTrackerRemindersTable();
+        deleteDynamicTrackerMQDungeonsTable();
     }
 
     private void runUpdateQuery(String updateQuery)
@@ -116,6 +121,36 @@ public class CreateTablesRepositoryImpl implements CreateTablesRepository
     private void deleteDynamicTrackerLocationsTable()
     {
         runUpdateQuery(DELETE_DYNAMIC_TRACKER_LOCATIONS_TABLE_QUERY);
+    }
+
+    private void createDynamicTrackerItemsTable()
+    {
+        runUpdateQuery(CREATE_DYNAMIC_TRACKER_ITEMS_TABLE_QUERY);
+    }
+
+    private void deleteDynamicTrackerItemsTable()
+    {
+        runUpdateQuery(DELETE_DYNAMIC_TRACKER_ITEMS_TABLE_QUERY);
+    }
+
+    private void createDynamicRemindersTable()
+    {
+        runUpdateQuery(CREATE_DYNAMIC_TRACKER_REMINDERS_TABLE_QUERY);
+    }
+
+    private void deleteDynamicTrackerRemindersTable()
+    {
+        runUpdateQuery(DELETE_DYNAMIC_TRACKER_REMINDERS_TABLE_QUERY);
+    }
+
+    private void createDynamicTrackerMQDungeonsTable()
+    {
+        runUpdateQuery(CREATE_DYNAMIC_TRACKER_MQ_DUNGEONS_TABLE_QUERY);
+    }
+
+    private void deleteDynamicTrackerMQDungeonsTable()
+    {
+        runUpdateQuery(DELETE_DYNAMIC_TRACKER_MQ_DUNGEONS_TABLE_QUERY);
     }
 
     private static final String CREATE_STATIC_JWT_VERSIONS_TABLE_QUERY = "CREATE TABLE " + Constants.STATIC_JWT_VERSIONS_TABLE_NAME + " (" +
@@ -212,5 +247,25 @@ public class CreateTablesRepositoryImpl implements CreateTablesRepository
 
     private static final String DELETE_DYNAMIC_TRACKER_LOCATIONS_TABLE_QUERY = "DROP TABLE " + Constants.DYNAMIC_TRACKER_LOCATIONS_TABLE_NAME;
 
+    private static final String CREATE_DYNAMIC_TRACKER_ITEMS_TABLE_QUERY = "CREATE TABLE " + Constants.DYNAMIC_TRACKER_ITEM_TABLE_NAME + " ("
+            + Constants.DYNAMIC_TRACKER_ITEMS_TRACKER_ID_COLUMN_NAME + " INTEGER NOT NULL, "
+            + Constants.DYNAMIC_TRACKER_ITEMS_ITEM_CHECK_LOCATION_ID_COLUMN_NAME + " INTEGER, "
+            + Constants.DYNAMIC_TRACKER_ITEMS_ITEM_ID_COLUMN_NAME + " INTEGER, "
+            + Constants.DYNAMIC_TRACKER_ITEMS_ITEM_COLLECTED_COLUMN_NAME + " BOOLEAN)";
+
+    private static final String DELETE_DYNAMIC_TRACKER_ITEMS_TABLE_QUERY = "DROP TABLE " + Constants.DYNAMIC_TRACKER_ITEM_TABLE_NAME;
+
+    private static final String CREATE_DYNAMIC_TRACKER_REMINDERS_TABLE_QUERY = "CREATE TABLE " + Constants.DYNAMIC_TRACKER_REMINDERS_TABLE_NAME + " ("
+            + Constants.DYNAMIC_TRACKER_REMINDERS_TRACKER_ID_COLUMN_NAME + " INTEGER NOT NULL, "
+            + Constants.REMINDER_COLUMN_NAME + " VARCHAR(1024))";
+
+    private static final String DELETE_DYNAMIC_TRACKER_REMINDERS_TABLE_QUERY = "DROP TABLE " + Constants.DYNAMIC_TRACKER_REMINDERS_TABLE_NAME;
+
+    private static final String CREATE_DYNAMIC_TRACKER_MQ_DUNGEONS_TABLE_QUERY = "CREATE TABLE " + Constants.DYNAMIC_TRACKER_MQ_DUNGEONS_TABLE_NAME + " ("
+            + Constants.DYNAMIC_TRACKER_MQ_DUNGEONS_TRACKER_ID_COLUMN_NAME + " INTEGER NOT NULL, "
+            + Constants.DYNAMIC_TRACKER_MQ_DUNGEON_ID_COLUMN_NAME + " INTEGER, "
+            + Constants.DYNAMIC_TRACKER_IS_MQ_DUNGEON_COLUMN_NAME + " BOOLEAN)";
+
+    private static final String DELETE_DYNAMIC_TRACKER_MQ_DUNGEONS_TABLE_QUERY = "DROP TABLE " + Constants.DYNAMIC_TRACKER_MQ_DUNGEONS_TABLE_NAME;
 
 }

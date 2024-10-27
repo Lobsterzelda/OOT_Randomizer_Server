@@ -110,6 +110,21 @@ public final class Constants {
     public static final String DYNAMIC_TRACKER_SOURCE_ID_COLUMN_NAME = "sourceId";
     public static final String DYNAMIC_TRACKER_DESTINATION_ID_COLUMN_NAME = "destinationId";
 
+    // DYNAMIC_TRACKER_ITEMS_TABLE column names:
+    public static final String DYNAMIC_TRACKER_ITEMS_TRACKER_ID_COLUMN_NAME = "trackerId";
+    public static final String DYNAMIC_TRACKER_ITEMS_ITEM_CHECK_LOCATION_ID_COLUMN_NAME = "itemCheckLocationId";
+    public static final String DYNAMIC_TRACKER_ITEMS_ITEM_ID_COLUMN_NAME = "itemId";
+    public static final String DYNAMIC_TRACKER_ITEMS_ITEM_COLLECTED_COLUMN_NAME = "itemCollected";
+
+    // DYNAMIC_TRACKER_REMINDERS_TABLE column names:
+    public static final String DYNAMIC_TRACKER_REMINDERS_TRACKER_ID_COLUMN_NAME = "trackerId";
+    public static final String REMINDER_COLUMN_NAME = "reminder";
+
+    // DYNAMIC_TRACKER_MQ_DUNGEONS_TABLE column names:
+    public static final String DYNAMIC_TRACKER_MQ_DUNGEONS_TRACKER_ID_COLUMN_NAME = "trackerId";
+    public static final String DYNAMIC_TRACKER_MQ_DUNGEON_ID_COLUMN_NAME = "dungeonId";
+    public static final String DYNAMIC_TRACKER_IS_MQ_DUNGEON_COLUMN_NAME = "isMQDungeon";
+
     public static final String JWT_VERSION_PROPERTY_PREFIX = "jwtKeyVersion_";
 
 }
