@@ -30,6 +30,8 @@ public class CreateTablesRepositoryImpl implements CreateTablesRepository
         createStaticEntranceTable();
         createStaticItemsTable();
         createStaticItemCheckLocationsTable();
+        createDynamicTrackerSeedSettingsTable();
+        createDynamicTrackerLocationsTable();
     }
 
     @Override
@@ -39,6 +41,8 @@ public class CreateTablesRepositoryImpl implements CreateTablesRepository
         deleteStaticEntrancesTable();
         deleteStaticItemsTable();
         deleteStaticItemLocationsTable();
+        deleteDynamicTrackerSeedSettingsTable();
+        deleteDynamicTrackerLocationsTable();
     }
 
     private void runUpdateQuery(String updateQuery)
@@ -92,6 +96,26 @@ public class CreateTablesRepositoryImpl implements CreateTablesRepository
     private void deleteStaticItemLocationsTable()
     {
         runUpdateQuery(DELETE_STATIC_ITEM_CHECK_LOCATIONS_TABLE_QUERY);
+    }
+
+    private void createDynamicTrackerSeedSettingsTable()
+    {
+        runUpdateQuery(CREATE_DYNAMIC_TRACKER_SEED_SETTINGS_TABLE_QUERY);
+    }
+
+    private void deleteDynamicTrackerSeedSettingsTable()
+    {
+        runUpdateQuery(DELETE_DYNAMIC_TRACKER_SEED_SETTINGS_TABLE_QUERY);
+    }
+
+    private void createDynamicTrackerLocationsTable()
+    {
+        runUpdateQuery(CREATE_DYNAMIC_TRACKER_LOCATIONS_TABLE_QUERY);
+    }
+
+    private void deleteDynamicTrackerLocationsTable()
+    {
+        runUpdateQuery(DELETE_DYNAMIC_TRACKER_LOCATIONS_TABLE_QUERY);
     }
 
     private static final String CREATE_STATIC_JWT_VERSIONS_TABLE_QUERY = "CREATE TABLE " + Constants.STATIC_JWT_VERSIONS_TABLE_NAME + " (" +
@@ -155,4 +179,38 @@ public class CreateTablesRepositoryImpl implements CreateTablesRepository
             + Constants.ITEM_CHECK_LOCATION_PERCENT_FROM_TOP_EDGE_OF_MAP_COLUMN_NAME + " DOUBLE)";
 
     private static final String DELETE_STATIC_ITEM_CHECK_LOCATIONS_TABLE_QUERY = "DROP TABLE " + Constants.STATIC_ITEM_CHECK_LOCATIONS_TABLE_NAME;
+
+    private static final String CREATE_DYNAMIC_TRACKER_SEED_SETTINGS_TABLE_QUERY = "CREATE TABLE " + Constants.DYNAMIC_TRACKER_SEED_SETTINGS_TABLE_NAME + " ("
+            + Constants.TRACKER_ID_COLUMN_NAME + " INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, "
+            + Constants.INCLUDES_OOT_LOCATIONS_COLUMN_NAME + " BOOLEAN, "
+            + Constants.INCLUDES_MQ_DUNGEONS_COLUMN_NAME + " BOOLEAN, "
+            + Constants.INCLUDES_MM_LOCATIONS_COLUMN_NAME + " BOOLEAN, "
+            + Constants.RANDOMIZED_OOT_WARP_SONGS_COLUMN_NAME + " BOOLEAN, "
+            + Constants.RANDOMIZED_OOT_OWL_LOCATIONS_COLUMN_NAME + " BOOLEAN, "
+            + Constants.RANDOMIZED_OOT_WALLMASTERS_COLUMN_NAME + " BOOLEAN, "
+            + Constants.RANDOMIZED_OOT_THIEVES_HIDEOUT_LOCATIONS_COLUMN_NAME + " BOOLEAN, "
+            + Constants.RANDOMIZED_MM_SONG_OF_SOARING_WARPS_COLUMN_NAME + " BOOLEAN, "
+            + Constants.RANDOMIZED_MM_WALLMASTERS_COLUMN_NAME + " BOOLEAN, "
+            + Constants.RANDOMIZED_MM_WATER_VOIDOUTS_COLUMN_NAME + " BOOLEAN, "
+            + Constants.RANDOMIZED_LOCATION_OF_GAME_CHANGE_COLUMN_NAME + " BOOLEAN, "
+            + Constants.RANDOMIZED_OOT_CHILD_SAVEWARP_LOCATION_COLUMN_NAME + " BOOLEAN, "
+            + Constants.RANDOMIZED_OOT_ADULT_SAVEWARP_LOCATION_COLUMN_NAME + " BOOLEAN, "
+            + Constants.RANDOMIZED_MM_SAVEWARP_LOCATION_COLUMN_NAME + " BOOLEAN, "
+            + Constants.DECOUPLED_ENTRANCES_COLUMN_NAME + " BOOLEAN, "
+            + Constants.RANDOMIZED_OOT_ITEMS_COLUMN_NAME + " BOOLEAN, "
+            + Constants.RANDOMIZED_MM_ITEMS_COLUMN_NAME + " BOOLEAN, "
+            + Constants.ALLOW_OOT_WARP_SONGS_IN_MM_COLUMN_NAME + " BOOLEAN, "
+            + Constants.ALLOW_MM_WARP_SONGS_IN_OOT_COLUMN_NAME + " BOOLEAN, "
+            + Constants.OPTIONAL_TRACKER_CREATOR_USER_NAME_COLUMN_NAME + " VARCHAR(256))";
+
+    private static final String DELETE_DYNAMIC_TRACKER_SEED_SETTINGS_TABLE_QUERY = "DROP TABLE " + Constants.DYNAMIC_TRACKER_SEED_SETTINGS_TABLE_NAME;
+
+    private static final String CREATE_DYNAMIC_TRACKER_LOCATIONS_TABLE_QUERY = "CREATE TABLE " + Constants.DYNAMIC_TRACKER_LOCATIONS_TABLE_NAME + " ("
+            + Constants.DYNAMIC_TRACKER_ID_COLUMN_NAME + " INTEGER NOT NULL, "
+            + Constants.DYNAMIC_TRACKER_SOURCE_ID_COLUMN_NAME + " INTEGER, "
+            + Constants.DYNAMIC_TRACKER_DESTINATION_ID_COLUMN_NAME + " INTEGER)";
+
+    private static final String DELETE_DYNAMIC_TRACKER_LOCATIONS_TABLE_QUERY = "DROP TABLE " + Constants.DYNAMIC_TRACKER_LOCATIONS_TABLE_NAME;
+
+
 }

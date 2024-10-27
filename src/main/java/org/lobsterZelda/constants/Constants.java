@@ -23,7 +23,7 @@ public final class Constants {
     public static final String STATIC_ITEM_CHECK_LOCATIONS_TABLE_NAME = "s_item_check_locations"; // Stores the list of itemCheckLocations in the games, and their properties.
 
     // Names of dynamic tables that store the contents of individual trackers
-    public static final String DYNAMIC_TRACKER_SETTINGS_TABLE_NAME = "d_tracker_seed_settings"; // This contains seed data that should never change after a seed is created.
+    public static final String DYNAMIC_TRACKER_SEED_SETTINGS_TABLE_NAME = "d_tracker_seed_settings"; // This contains seed data that should never change after a seed is created.
     public static final String DYNAMIC_TRACKER_LOCATIONS_TABLE_NAME = "d_tracker_locations"; // This contains the mappings for where each entrance in a seed leads
     public static final String DYNAMIC_TRACKER_ITEM_TABLE_NAME = "d_tracker_items"; // This contains the mappings for itemID to itemCheckLocationID, and includes a Boolean that tracks if the user has collected the associated item yet. If no entry is present for an item in a seed, that is interpretted as the user hasn't collected the item, and doesn't know where it is.     // Additionally, if the user has an item but hasn't marked where they got it from, then the associated itemCheckLocation would be -1
     public static final String DYNAMIC_TRACKER_REMINDERS_TABLE_NAME = "d_tracker_reminders"; // Stores the reminders associated with a seed.
@@ -82,6 +82,33 @@ public final class Constants {
     public static final String ITEM_CHECK_LOCATION_PERCENT_FROM_LEFT_EDGE_OF_MAP_COLUMN_NAME = "percentFromLeftEdgeOfMap";
     public static final String ITEM_CHECK_LOCATION_PERCENT_FROM_TOP_EDGE_OF_MAP_COLUMN_NAME = "percentFromTopEdgeOfMap";
 
+    // DYNAMIC_TRACKER_SEED_SETTINGS_TABLE column names:
+    public static final String TRACKER_ID_COLUMN_NAME = "id";
+    public static final String INCLUDES_OOT_LOCATIONS_COLUMN_NAME = "includesOOTLocations";
+    public static final String INCLUDES_MQ_DUNGEONS_COLUMN_NAME = "includesMQDungeons";
+    public static final String INCLUDES_MM_LOCATIONS_COLUMN_NAME = "includesMMLocations";
+    public static final String RANDOMIZED_OOT_WARP_SONGS_COLUMN_NAME = "randomizedOOTWarpSongs";
+    public static final String RANDOMIZED_OOT_OWL_LOCATIONS_COLUMN_NAME = "randomizedOOTOwlLocations";
+    public static final String RANDOMIZED_OOT_WALLMASTERS_COLUMN_NAME = "randomizedOOTWallmasters";
+    public static final String RANDOMIZED_OOT_THIEVES_HIDEOUT_LOCATIONS_COLUMN_NAME = "randomizedOOTThievesHideoutLocations";
+    public static final String RANDOMIZED_MM_SONG_OF_SOARING_WARPS_COLUMN_NAME = "randomizedMMSongOfSoaringWarps";
+    public static final String RANDOMIZED_MM_WALLMASTERS_COLUMN_NAME = "randomizedMMWallmasters";
+    public static final String RANDOMIZED_MM_WATER_VOIDOUTS_COLUMN_NAME = "randomizedMMWaterVoidouts";
+    public static final String RANDOMIZED_LOCATION_OF_GAME_CHANGE_COLUMN_NAME = "randomizedLocationOfGameChange";
+    public static final String RANDOMIZED_OOT_CHILD_SAVEWARP_LOCATION_COLUMN_NAME = "randomizedOOTChildSavewarpLocation";
+    public static final String RANDOMIZED_OOT_ADULT_SAVEWARP_LOCATION_COLUMN_NAME = "randomizedOOTAdultSavewarpLocation";
+    public static final String RANDOMIZED_MM_SAVEWARP_LOCATION_COLUMN_NAME = "randomizedMMSavewarpLocation";
+    public static final String DECOUPLED_ENTRANCES_COLUMN_NAME = "decoupledEntrances";
+    public static final String RANDOMIZED_OOT_ITEMS_COLUMN_NAME = "randomizedOOTItems";
+    public static final String RANDOMIZED_MM_ITEMS_COLUMN_NAME = "randomizedMMItems";
+    public static final String ALLOW_OOT_WARP_SONGS_IN_MM_COLUMN_NAME = "allowOOTWarpSongsInMM";
+    public static final String ALLOW_MM_WARP_SONGS_IN_OOT_COLUMN_NAME = "allowMMWarpSongsInOOT";
+    public static final String OPTIONAL_TRACKER_CREATOR_USER_NAME_COLUMN_NAME = "optionalTrackerCreatorUserName";
+
+    // DYNAMIC_TRACKER_LOCATIONS_TABLE column names:
+    public static final String DYNAMIC_TRACKER_ID_COLUMN_NAME = "trackerId";
+    public static final String DYNAMIC_TRACKER_SOURCE_ID_COLUMN_NAME = "sourceId";
+    public static final String DYNAMIC_TRACKER_DESTINATION_ID_COLUMN_NAME = "destinationId";
 
     public static final String JWT_VERSION_PROPERTY_PREFIX = "jwtKeyVersion_";
 
