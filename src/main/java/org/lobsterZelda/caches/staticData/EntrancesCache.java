@@ -77,7 +77,7 @@ public class EntrancesCache
                 return graphDeepCopy(ootAndMm_WallmastersOff_VoidPointsOff_Graph);
         }
         else
-            throw new InvalidParameterException("Error: Invalid combination of setting options was entered. ootIncluded was " + ootIncluded + ", mmIncluded was "  + mmIncluded + ", wallmastersRandmized was " + wallmastersRandomized + ", and voidPointsRandomzied was " + voidPointsRandomized);
+            throw new InvalidParameterException("Error: Invalid combination of setting options was entered for EntrancesCache retrieval. ootIncluded was " + ootIncluded + ", mmIncluded was "  + mmIncluded + ", wallmastersRandmized was " + wallmastersRandomized + ", and voidPointsRandomzied was " + voidPointsRandomized);
     }
 
     private static EntranceGraph graphDeepCopy(EntranceGraph inputGraph)

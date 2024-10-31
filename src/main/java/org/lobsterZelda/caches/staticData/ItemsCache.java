@@ -2,6 +2,8 @@ package org.lobsterZelda.caches.staticData;
 
 import org.lobsterZelda.models.ItemGraph;
 
+import java.security.InvalidParameterException;
+
 public class ItemsCache
 {
     // We cache all combinations of oot check locations, mm check locations, oot items, and mm items.
@@ -27,7 +29,7 @@ public class ItemsCache
     public static final ItemGraph ootItemCheckLocations_mmItemCheckLocations_ootItems_mmItems = new ItemGraph();
 
     // Returns a new (deep-copy) item graph for a seed with the specified settings (used when creating a new seed).
-    // For invalid/impossible combinations of settings, this function returns null
+    // For invalid/impossible combinations of settings, this function throws an InvalidParameterException
     public static ItemGraph getInitialItemGraphForSettings(boolean ootItemCheckLocationsIncluded, boolean mmItemCheckLocationsIncluded, boolean ootItemsIncluded, boolean mmItemsIncluded)
     {
         if (ootItemCheckLocationsIncluded && mmItemCheckLocationsIncluded)
@@ -39,7 +41,8 @@ public class ItemsCache
             else if (mmItemsIncluded)
                 return graphDeepCopy(ootItemCheckLocations_mmItemCheckLocations_noOOTItems_mmItems);
             else
-                return null;
+                throw new InvalidParameterException("Error: Invalid combination of setting options was entered for ItemsCache retrieval. ootItemCheckLocationsIncluded was " + ootItemCheckLocationsIncluded + ", mmItemCheckLocationsIncluded was "  + mmItemCheckLocationsIncluded + ", ootItemsIncluded was " + ootItemsIncluded + ", and mmItemsIncluded was " + mmItemsIncluded);
+
         }
         else if (ootItemCheckLocationsIncluded)
         {
@@ -50,7 +53,7 @@ public class ItemsCache
             else if (mmItemsIncluded)
                 return graphDeepCopy(ootItemCheckLocations_noMMItemCheckLocations_noOOTItems_mmItems);
             else
-                return null;
+                throw new InvalidParameterException("Error: Invalid combination of setting options was entered for ItemsCache retrieval. ootItemCheckLocationsIncluded was " + ootItemCheckLocationsIncluded + ", mmItemCheckLocationsIncluded was "  + mmItemCheckLocationsIncluded + ", ootItemsIncluded was " + ootItemsIncluded + ", and mmItemsIncluded was " + mmItemsIncluded);
         }
         else if (mmItemCheckLocationsIncluded)
         {
@@ -61,10 +64,10 @@ public class ItemsCache
             else if (mmItemsIncluded)
                 return graphDeepCopy(noOOTItemCheckLocations_mmItemCheckLocations_noOOTItems_mmItems);
             else
-                return null;
+                throw new InvalidParameterException("Error: Invalid combination of setting options was entered for ItemsCache retrieval. ootItemCheckLocationsIncluded was " + ootItemCheckLocationsIncluded + ", mmItemCheckLocationsIncluded was "  + mmItemCheckLocationsIncluded + ", ootItemsIncluded was " + ootItemsIncluded + ", and mmItemsIncluded was " + mmItemsIncluded);
         }
         else
-            return null;
+            throw new InvalidParameterException("Error: Invalid combination of setting options was entered for ItemsCache retrieval. ootItemCheckLocationsIncluded was " + ootItemCheckLocationsIncluded + ", mmItemCheckLocationsIncluded was "  + mmItemCheckLocationsIncluded + ", ootItemsIncluded was " + ootItemsIncluded + ", and mmItemsIncluded was " + mmItemsIncluded);
     }
 
     private static ItemGraph graphDeepCopy(ItemGraph inputGraph)
