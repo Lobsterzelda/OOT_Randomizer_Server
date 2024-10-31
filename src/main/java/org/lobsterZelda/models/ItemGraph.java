@@ -56,4 +56,56 @@ public class ItemGraph {
     public Set<Integer> getItemsAcquired() {
         return itemsAcquired;
     }
+
+    public ItemGraph deepCopy()
+    {
+        ItemGraph returnGraph = new ItemGraph();
+
+        for (Integer id : this.uniqueItemIdentifierToItemMap.keySet())
+            returnGraph.uniqueItemIdentifierToItemMap.put(new Integer(id), generateItemDeepCopy(this.uniqueItemIdentifierToItemMap.get(id)));
+        for (String name : this.itemNameToItemMap.keySet())
+            returnGraph.itemNameToItemMap.put(name, generateItemDeepCopy(this.itemNameToItemMap.get(name)));
+        for (Integer id : this.uniqueItemCheckLocationIdentifierToItemCheckLocationMap.keySet())
+            returnGraph.uniqueItemCheckLocationIdentifierToItemCheckLocationMap.put(new Integer(id), generateItemCheckLocationDeepCopy(this.uniqueItemCheckLocationIdentifierToItemCheckLocationMap.get(id)));
+        for (String name : this.itemCheckLocationNameToItemCheckLocationMap.keySet())
+            returnGraph.itemCheckLocationNameToItemCheckLocationMap.put(name, generateItemCheckLocationDeepCopy(this.itemCheckLocationNameToItemCheckLocationMap.get(name)));
+        for (Integer id : this.itemIdToItemCheckLocationMap.keySet())
+            returnGraph.itemIdToItemCheckLocationMap.put(new Integer(id), new Integer(this.itemIdToItemCheckLocationMap.get(id)));
+        for (Integer id : this.itemCheckLocationToItemIdMap.keySet())
+            returnGraph.itemCheckLocationToItemIdMap.put(new Integer(id), new Integer(this.itemCheckLocationToItemIdMap.get(id)));
+        for (Integer id : this.itemsAcquired)
+            returnGraph.itemsAcquired.add(new Integer(id));
+
+        return returnGraph;
+    }
+
+    private Item generateItemDeepCopy(Item input)
+    {
+            Item returnItem = new Item();
+
+            returnItem.setItemID(input.getItemID());
+            returnItem.setMapId(input.getMapId());
+            returnItem.setItemName(input.getItemName());
+            returnItem.setItemDescription(input.getItemDescription());
+            returnItem.setIsOOTItem(input.getIsOOTItem());
+            returnItem.setPercentFromLeftEdgeOfMap(input.getPercentFromLeftEdgeOfMap());
+            returnItem.setPercentFromTopEdgeOfMap(input.getPercentFromTopEdgeOfMap());
+
+            return returnItem;
+    }
+
+    private ItemCheckLocation generateItemCheckLocationDeepCopy(ItemCheckLocation input)
+    {
+        ItemCheckLocation returnValue = new ItemCheckLocation();
+
+        returnValue.setItemCheckLocationId(input.getItemCheckLocationId());
+        returnValue.setMapId(input.getMapId());
+        returnValue.setItemCheckLocationName(input.getItemCheckLocationName());
+        returnValue.setItemCheckLocationDescription(input.getItemCheckLocationDescription());
+        returnValue.setIsOOTItemCheckLocation(input.getIsOOTItemCheckLocation());
+        returnValue.setPercentFromLeftEdgeOfMap(input.getPercentFromLeftEdgeOfMap());
+        returnValue.setPercentFromTopEdgeOfMap(input.getPercentFromTopEdgeOfMap());
+
+        return returnValue;
+    }
 }

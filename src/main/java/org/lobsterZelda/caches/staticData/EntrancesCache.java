@@ -6,7 +6,7 @@ import java.security.InvalidParameterException;
 
 public class EntrancesCache
 {
-    //These maps cache all of the possible combinations of maps, so we can load them right away for the user.
+    //These graphs cache all of the possible combinations of entrance settings, so we can load them right away for the user.
     // In general, the conditions that maps of entrance identifiers/names are separated on are:
     // 1. Wallmasters randomized vs. not randomized.
     // 2. Void-points randomized vs. not randomized.
