@@ -104,6 +104,7 @@ public final class Constants {
     public static final String ALLOW_OOT_WARP_SONGS_IN_MM_COLUMN_NAME = "allowOOTWarpSongsInMM";
     public static final String ALLOW_MM_WARP_SONGS_IN_OOT_COLUMN_NAME = "allowMMWarpSongsInOOT";
     public static final String OPTIONAL_TRACKER_CREATOR_USER_NAME_COLUMN_NAME = "optionalTrackerCreatorUserName";
+    public static final String JWT_VERSION_FOR_TRACKER_COLUMN_NAME = "jwt_id";
 
     // DYNAMIC_TRACKER_LOCATIONS_TABLE column names:
     public static final String DYNAMIC_TRACKER_ID_COLUMN_NAME = "trackerId";

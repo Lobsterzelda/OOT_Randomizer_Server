@@ -236,7 +236,8 @@ public class CreateTablesRepositoryImpl implements CreateTablesRepository
             + Constants.RANDOMIZED_MM_ITEMS_COLUMN_NAME + " BOOLEAN, "
             + Constants.ALLOW_OOT_WARP_SONGS_IN_MM_COLUMN_NAME + " BOOLEAN, "
             + Constants.ALLOW_MM_WARP_SONGS_IN_OOT_COLUMN_NAME + " BOOLEAN, "
-            + Constants.OPTIONAL_TRACKER_CREATOR_USER_NAME_COLUMN_NAME + " VARCHAR(256))";
+            + Constants.OPTIONAL_TRACKER_CREATOR_USER_NAME_COLUMN_NAME + " VARCHAR(256), "
+            + Constants.JWT_VERSION_FOR_TRACKER_COLUMN_NAME + " INTEGER)";
 
     private static final String DELETE_DYNAMIC_TRACKER_SEED_SETTINGS_TABLE_QUERY = "DROP TABLE " + Constants.DYNAMIC_TRACKER_SEED_SETTINGS_TABLE_NAME;
 
