@@ -32,7 +32,7 @@ public class EntrancesCache
     public static final EntranceGraph ootAndMm_WallmastersOn_VoidPointsOn_Graph = new EntranceGraph();
 
     // Returns a new (deep-copy) entrance graph for a seed with the specified settings (used when creating a new seed).
-    public static EntranceGraph getEntranceGraphForSettings(boolean ootIncluded, boolean mmIncluded, boolean wallmastersRandomized, boolean voidPointsRandomized)
+    public static EntranceGraph getInitialEntranceGraphForSettings(boolean ootIncluded, boolean mmIncluded, boolean wallmastersRandomized, boolean voidPointsRandomized)
     {
         if (ootIncluded && !mmIncluded)
         {

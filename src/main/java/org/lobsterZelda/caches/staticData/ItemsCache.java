@@ -26,4 +26,49 @@ public class ItemsCache
     public static final ItemGraph ootItemCheckLocations_mmItemCheckLocations_noOOTItems_mmItems = new ItemGraph();
     public static final ItemGraph ootItemCheckLocations_mmItemCheckLocations_ootItems_mmItems = new ItemGraph();
 
+    // Returns a new (deep-copy) item graph for a seed with the specified settings (used when creating a new seed).
+    // For invalid/impossible combinations of settings, this function returns null
+    public static ItemGraph getInitialItemGraphForSettings(boolean ootItemCheckLocationsIncluded, boolean mmItemCheckLocationsIncluded, boolean ootItemsIncluded, boolean mmItemsIncluded)
+    {
+        if (ootItemCheckLocationsIncluded && mmItemCheckLocationsIncluded)
+        {
+            if (ootItemsIncluded && mmItemsIncluded)
+                return graphDeepCopy(ootItemCheckLocations_mmItemCheckLocations_ootItems_mmItems);
+            else if (ootItemsIncluded)
+                return graphDeepCopy(ootItemCheckLocations_mmItemCheckLocations_ootItems_noMMItems);
+            else if (mmItemsIncluded)
+                return graphDeepCopy(ootItemCheckLocations_mmItemCheckLocations_noOOTItems_mmItems);
+            else
+                return null;
+        }
+        else if (ootItemCheckLocationsIncluded)
+        {
+            if (ootItemsIncluded && mmItemsIncluded)
+                return graphDeepCopy(ootItemCheckLocations_noMMItemCheckLocations_ootItems_mmItems);
+            else if (ootItemsIncluded)
+                return graphDeepCopy(ootItemCheckLocations_noMMItemCheckLocations_ootItems_noMMItems);
+            else if (mmItemsIncluded)
+                return graphDeepCopy(ootItemCheckLocations_noMMItemCheckLocations_noOOTItems_mmItems);
+            else
+                return null;
+        }
+        else if (mmItemCheckLocationsIncluded)
+        {
+            if (ootItemsIncluded && mmItemsIncluded)
+                return graphDeepCopy(noOOTItemCheckLocations_mmItemCheckLocations_ootItems_mmItems);
+            else if (ootItemsIncluded)
+                return graphDeepCopy(noOOTItemCheckLocations_mmItemCheckLocations_ootItems_noMMItems);
+            else if (mmItemsIncluded)
+                return graphDeepCopy(noOOTItemCheckLocations_mmItemCheckLocations_noOOTItems_mmItems);
+            else
+                return null;
+        }
+        else
+            return null;
+    }
+
+    private static ItemGraph graphDeepCopy(ItemGraph inputGraph)
+    {
+        return inputGraph == null ? null : inputGraph.deepCopy();
+    }
 }
