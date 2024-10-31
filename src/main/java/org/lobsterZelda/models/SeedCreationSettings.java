@@ -35,6 +35,8 @@ public class SeedCreationSettings {
 
     private String optionalTrackerCreatorUserName =  null; // The user can optionally set a username to be associated with their Tracker.
 
+    private int jwtVersionId = -1;
+
     public SeedCreationSettings() {}
 
     public boolean isIncludesOOTLocations() {
@@ -197,6 +199,14 @@ public class SeedCreationSettings {
         this.optionalTrackerCreatorUserName = optionalTrackerCreatorUserName;
     }
 
+    public int getJwtVersionId() {
+        return jwtVersionId;
+    }
+
+    public void setJwtVersionId(int jwtVersionId) {
+        this.jwtVersionId = jwtVersionId;
+    }
+
     @Override
     public String toString() {
         return "SeedCreationSettings{" +
@@ -220,6 +230,7 @@ public class SeedCreationSettings {
                 ", allowOOTWarpSongsInMM=" + allowOOTWarpSongsInMM +
                 ", allowMMWarpSongInOOT=" + allowMMWarpSongInOOT +
                 ", optionalTrackerCreatorUserName=" + optionalTrackerCreatorUserName +
+                ", jwtVersionId=" + jwtVersionId +
                 '}';
     }
 }
